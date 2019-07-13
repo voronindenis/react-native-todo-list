@@ -6,21 +6,11 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
-  Platform, StyleSheet, Text, View,
-} from 'react-native';
-import { Button } from 'react-native-elements';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n'
-    + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n'
-    + 'Shake or press menu button for dev menu',
-});
-
-type Props = {};
+  Button, Input, ListItem,
+} from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,29 +19,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <Button
-          title="Solid Button"
-        />
-      </View>
-    );
-  }
-}
+type TodoItem = {
+  text: string,
+};
+
+export const App = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [list, changeList] = useState([]);
+
+  const handleInputChange = (value: string) => setInputValue(value);
+
+  const handleAddTodoItem = () => changeList([...list, inputValue]);
+
+  const handleDeleteTodoItem = () => changeList([]);
+
+  return (
+    <View style={styles.container}>
+      {
+        list.map((item:TodoItem) => (
+          <ListItem
+            key={item.text}
+            title={item.text}
+            rightIcon={{
+              name: 'delete',
+              color: '#517fa4',
+              onPress: handleDeleteTodoItem,
+            }}
+          />
+        ))
+      }
+      <Text>{inputValue}</Text>
+      <Input
+        placeholder="Enter what you should do"
+        value={inputValue}
+        onChangeText={handleInputChange}
+      />
+      <Button
+        title="Add Todo"
+        onPress={handleAddTodoItem}
+      />
+    </View>
+  );
+};

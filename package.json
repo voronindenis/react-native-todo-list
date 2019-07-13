@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run:packager": "./node_modules/react-native/scripts/packager.sh",
     "run:ios": "react-native run-ios",
+    "postinstall": "rndebugger-open",
     "lint": "eslint --ext .js --ext .jsx src",
     "flow": "flow"
   },
@@ -26,7 +27,8 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "react-native-debugger-open": "^0.3.19"
   },
   "pre-commit": [
     "lint",
