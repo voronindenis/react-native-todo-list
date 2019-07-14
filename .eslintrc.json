@@ -36,6 +36,7 @@
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "linebreak-style": ["error", "unix"],
     "semi": "error",
     "comma-dangle": [

@@ -6,60 +6,28 @@
  * @flow
  */
 
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {
-  Button, Input, ListItem,
-} from 'react-native-elements';
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Header } from '@/components/header';
+import { TodoList } from '@/components/todo-list';
+import { NewTodo } from '@/components/new-todo';
+import { TodoListProvider } from '@/hooks/useTodoList';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
 });
 
-type TodoItem = {
-  text: string,
-};
-
-export const App = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [list, changeList] = useState([]);
-
-  const handleInputChange = (value: string) => setInputValue(value);
-
-  const handleAddTodoItem = () => changeList([...list, inputValue]);
-
-  const handleDeleteTodoItem = () => changeList([]);
-
-  return (
+export const App = () => (
+  <TodoListProvider>
     <View style={styles.container}>
-      {
-        list.map((item:TodoItem) => (
-          <ListItem
-            key={item.text}
-            title={item.text}
-            rightIcon={{
-              name: 'delete',
-              color: '#517fa4',
-              onPress: handleDeleteTodoItem,
-            }}
-          />
-        ))
-      }
-      <Text>{inputValue}</Text>
-      <Input
-        placeholder="Enter what you should do"
-        value={inputValue}
-        onChangeText={handleInputChange}
-      />
-      <Button
-        title="Add Todo"
-        onPress={handleAddTodoItem}
-      />
+      <Header />
+      <TodoList />
+      <NewTodo />
     </View>
-  );
-};
+  </TodoListProvider>
+);
