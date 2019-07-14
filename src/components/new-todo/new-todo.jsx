@@ -6,7 +6,7 @@ import { Button, Input } from 'react-native-elements';
 type NewTodoPropsType = {
   inputValue: string,
   handleInputChange: (newValue: string) => void,
-  handleAddTodoItem: (newTodo: string) => void,
+  handleAddTodoItem: (event: Event) => void,
 };
 
 const styles = StyleSheet.create({

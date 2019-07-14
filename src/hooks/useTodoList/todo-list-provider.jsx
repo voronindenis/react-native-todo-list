@@ -3,8 +3,8 @@ import * as React from 'react';
 import { identity } from '@/utils/identity';
 import { INITIAL_STATE, todoListReducer } from './todo-list-reducer';
 
-export const TodoListStateContext = React.createContext(INITIAL_STATE);
-export const TodoListDispatchContext = React.createContext(identity);
+export const TodoListStateContext = React.createContext<Array<{ text: string }>>(INITIAL_STATE);
+export const TodoListDispatchContext = React.createContext<Function>(identity);
 
 type ProviderPropsType = {
   children?: React.Node,
