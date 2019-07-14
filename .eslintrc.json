@@ -36,6 +36,7 @@
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "linebreak-style": ["error", "unix"],
     "semi": "error",
     "comma-dangle": [
@@ -52,6 +53,7 @@
       }
     ],
     "no-case-declarations": 0,
+    "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/anchor-has-content": "off",
