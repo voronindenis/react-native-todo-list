@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 
 type NewTodoPropsType = {
@@ -10,6 +10,11 @@ type NewTodoPropsType = {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    alignItems: 'center',
+    width: '100%',
+  },
   addButton: {
     width: '60%',
     marginTop: '5%',
@@ -18,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 export const NewTodo = (props: NewTodoPropsType) => (
-  <>
+  <View style={styles.container}>
     <Input
       placeholder="Enter what you should do"
       value={props.inputValue}
@@ -29,5 +34,5 @@ export const NewTodo = (props: NewTodoPropsType) => (
       title="Add Todo"
       onPress={props.handleAddTodoItem}
     />
-  </>
+  </View>
 );

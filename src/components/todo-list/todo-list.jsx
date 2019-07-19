@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
 type TodoListPropsType = {
@@ -9,13 +9,15 @@ type TodoListPropsType = {
 };
 
 const styles = StyleSheet.create({
-  listItem: {
-    width: '80%',
+  container: {
+    flex: 7,
+    width: '100%',
   },
+  listItem: {},
 });
 
 export const TodoList = (props: TodoListPropsType) => (
-  <>
+  <View style={styles.container}>
     {
       props.todoList.map((item: { text: string}, index: number) => (
         <ListItem
@@ -30,5 +32,5 @@ export const TodoList = (props: TodoListPropsType) => (
         />
       ))
     }
-  </>
+  </View>
 );
