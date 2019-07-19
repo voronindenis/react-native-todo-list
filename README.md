@@ -1,2 +1,2 @@
 # react-native-todo-list
-React Native App TotoList
+React Native App TodoList
