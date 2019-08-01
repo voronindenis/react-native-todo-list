@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
 import { CategoryItemType } from './header-types';
 
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: 'column',
     width: '100%',
-    backgroundColor: COLORS_ENUM.MAIN_COLOR,
+    backgroundColor: COLORS_ENUM.MAIN_APP_COLOR,
     paddingLeft: 24,
     paddingRight: 24,
   },
@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   counter: {
-    borderColor: COLORS_ENUM.WHITE,
+    borderColor: COLORS_ENUM.WHITE_COLOR,
     borderRadius: 12,
     borderWidth: 1,
-    color: COLORS_ENUM.WHITE,
+    color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
+    fontFamily: "Montserrat-Medium",
     padding: 4,
   },
   lowerContainer: {
@@ -45,13 +46,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryItem: {
-    flex: 1,
-    color: COLORS_ENUM.WHITE,
+    color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
+    fontFamily: "Montserrat-Medium",
+    alignItems: 'center',
+    width: 100
   },
   title: {
-    color: COLORS_ENUM.WHITE,
+    color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.TITLE_FONT_SIZE,
+    fontFamily: "Montserrat-Bold",
+    fontWeight: "700",
   },
 });
 
@@ -70,7 +75,7 @@ export const Header = (props: HeaderPropsType) => (
         <Icon
           name="ellipsis-v"
           size={FONT_SIZES_ENUM.TITLE_FONT_SIZE}
-          color={COLORS_ENUM.WHITE}
+          color={COLORS_ENUM.WHITE_COLOR}
         />
       </View>
       <View style={styles.subLowerContainer}>
@@ -79,7 +84,10 @@ export const Header = (props: HeaderPropsType) => (
         </View>
       </View>
     </View>
-    <View style={styles.lowerContainer}>
+    <ScrollView
+      contentContainerStyle={styles.lowerContainer}
+      horizontal
+    >
       {
         props.categories.map((category: CategoryItemType) => (
           <Text
@@ -90,6 +98,6 @@ export const Header = (props: HeaderPropsType) => (
             </Text>
         ))
       }
-    </View>
+    </ScrollView>
   </View>
 );

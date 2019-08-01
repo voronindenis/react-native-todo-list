@@ -1,9 +1,11 @@
 // @flow
 import * as React from 'react';
 import { identity } from '@/utils/identity';
-import { INITIAL_STATE, todoListReducer } from './todo-list-reducer';
+import { todoListReducer } from './todo-list-reducer';
+import { TODO_LIST_MOCK } from './todo-list-constants';
+import type { TodoItemType } from './todo-list-types';
 
-export const TodoListStateContext = React.createContext<Array<{ text: string }>>(INITIAL_STATE);
+export const TodoListStateContext = React.createContext<Array<TodoItemType>>(TODO_LIST_MOCK);
 export const TodoListDispatchContext = React.createContext<Function>(identity);
 
 type ProviderPropsType = {
@@ -11,7 +13,7 @@ type ProviderPropsType = {
 };
 
 export const TodoListProvider = (props: ProviderPropsType) => {
-  const [state, dispatch] = React.useReducer(todoListReducer, INITIAL_STATE);
+  const [state, dispatch] = React.useReducer(todoListReducer, TODO_LIST_MOCK);
 
   return (
     <TodoListDispatchContext.Provider value={dispatch}>

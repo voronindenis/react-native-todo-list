@@ -1,38 +1,40 @@
 // @flow
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+import { COLORS_ENUM } from '@/constants/common';
+import { IconButton } from '@/components/icon-button';
 
 type NewTodoPropsType = {
-  inputValue: string,
-  handleInputChange: (newValue: string) => void,
-  handleAddTodoItem: (event: Event) => void,
+  onAddButtonPress: () => null,
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
-    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
     width: '100%',
-  },
-  addButton: {
-    width: '60%',
-    marginTop: '5%',
-    marginBottom: '5%',
+    height: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
 export const NewTodo = (props: NewTodoPropsType) => (
-  <View style={styles.container}>
-    <Input
-      placeholder="Enter what you should do"
-      value={props.inputValue}
-      onChangeText={props.handleInputChange}
+  <LinearGradient
+    colors={[
+      COLORS_ENUM.WHITE_TRANSPARENT_COLOR,
+      COLORS_ENUM.WHITE_LESS_TRANSPARENT_COLOR,
+      COLORS_ENUM.WHITE_MORE_TRANSPARENT_COLOR,
+      COLORS_ENUM.WHITE_COLOR,
+      COLORS_ENUM.WHITE_COLOR
+    ]}
+    locations={[0, 0.2, 0.6, 0.8, 1]}
+    style={styles.container}
+  >
+    <IconButton
+      iconName="plus"
+      onPress={props.onAddButtonPress}
     />
-    <Button
-      style={styles.addButton}
-      title="Add Todo"
-      onPress={props.handleAddTodoItem}
-    />
-  </View>
+  </LinearGradient>
 );

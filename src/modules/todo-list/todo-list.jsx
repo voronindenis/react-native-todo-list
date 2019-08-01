@@ -1,8 +1,9 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { COLORS_ENUM } from '@/constants/common';
 import type { TodoItemType } from '@/hooks/useTodoList';
+import { ListItem } from './components/list-item'
 
 type TodoListPropsType = {
   todoList: Array<TodoItemType>,
@@ -11,27 +12,31 @@ type TodoListPropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 8,
+    flex: 11,
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: COLORS_ENUM.DEFAULT_BACKGROUND_COLOR,
+    paddingTop: 8,
+  },
+  list: {
     width: '100%',
   },
-  listItem: {},
 });
 
 export const TodoList = (props: TodoListPropsType) => (
   <View style={styles.container}>
-    {
-      props.todoList.map((item: TodoItemType, index: number) => (
+    <FlatList
+      style={styles.list}
+      data={props.todoList}
+      renderItem={({ item }: TodoItemType, index: number) => (
         <ListItem
-          style={styles.listItem}
-          key={item.id}
           title={item.title}
-          rightIcon={{
-            name: 'delete',
-            color: '#517fa4',
-            onPress: () => props.onDeleteTodoItem(index),
-          }}
+          category={item.category}
+          expirationDate={item.expirationDate}
+          onPress={() => props.onDeleteTodoItem(index)}
+          isDone={item.isDone}
         />
-      ))
-    }
+      )}
+    />
   </View>
 );
