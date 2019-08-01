@@ -10,6 +10,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <ReactNativeNavigation/ReactNativeNavigation.h>
+
 
 @implementation AppDelegate
 
@@ -27,6 +29,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
+  
   return YES;
 }
 

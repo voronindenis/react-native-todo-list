@@ -1,9 +1,10 @@
 // @flow
 import * as React from 'react';
-import {StyleSheet, View} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Header } from '@/modules/header';
 import { TodoList } from '@/modules/todo-list';
 import { NewTodo } from '@/modules/new-todo';
+import {TodoListProvider} from '@/hooks/useTodoList';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,10 +15,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TaskList = () => (
-  <View style={styles.container}>
-    <Header />
-    <TodoList />
-    <NewTodo />
-  </View>
+type TaskListPropsType = {
+  componentId: string,
+};
+
+export const TaskList = (props: TaskListPropsType) => (
+  <TodoListProvider>
+    <View style={styles.container}>
+      <Header />
+      <TodoList />
+      <NewTodo componentId={props.componentId} />
+    </View>
+  </TodoListProvider>
 );
