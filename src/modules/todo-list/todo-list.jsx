@@ -2,15 +2,16 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import type { TodoItemType } from '@/hooks/useTodoList';
 
 type TodoListPropsType = {
-  todoList: Array<{ text: string }>,
+  todoList: Array<TodoItemType>,
   onDeleteTodoItem: (index: number) => void,
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 7,
+    flex: 8,
     width: '100%',
   },
   listItem: {},
@@ -19,11 +20,11 @@ const styles = StyleSheet.create({
 export const TodoList = (props: TodoListPropsType) => (
   <View style={styles.container}>
     {
-      props.todoList.map((item: { text: string}, index: number) => (
+      props.todoList.map((item: TodoItemType, index: number) => (
         <ListItem
           style={styles.listItem}
-          key={item.text}
-          title={item.text}
+          key={item.id}
+          title={item.title}
           rightIcon={{
             name: 'delete',
             color: '#517fa4',
