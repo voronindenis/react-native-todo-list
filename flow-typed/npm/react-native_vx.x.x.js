@@ -2219,22 +2219,22 @@ declare module 'react-native/Libraries/Animated/src/bezier.js' {
   declare module.exports: $Exports<'react-native/Libraries/Animated/src/bezier'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedFlatList.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedFlatList'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedFlatList'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedImage.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedImage'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedImage'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedScrollView.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedScrollView'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedScrollView'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedSectionList.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedSectionList'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedSectionList'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedText.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedText'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedText'>;
 }
 declare module 'react-native/Libraries/Animated/src/components/AnimatedView.js' {
-  declare module.exports: $Exports<'react-native/Libraries/Animated/src/modules/AnimatedView'>;
+  declare module.exports: $Exports<'react-native/Libraries/Animated/src/components/AnimatedView'>;
 }
 declare module 'react-native/Libraries/Animated/src/createAnimatedComponent.js' {
   declare module.exports: $Exports<'react-native/Libraries/Animated/src/createAnimatedComponent'>;

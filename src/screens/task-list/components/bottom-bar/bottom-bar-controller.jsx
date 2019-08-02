@@ -1,24 +1,32 @@
 // @flow
 import * as React from 'react';
 import { Navigation } from 'react-native-navigation';
-import { NewTodo } from './new-todo';
+import { BottomBar } from './bottom-bar';
 
-type NewTodoControllerPropsType = {
+type BottomBarControllerPropsType = {
   componentId: string,
 };
 
-export const NewTodoController = (props: NewTodoControllerPropsType) => {
+export const BottomBarController = (props: BottomBarControllerPropsType) => {
   const handleAddButtonPress = async () => {
-    console.log('work', props);
     await Navigation.push(props.componentId, {
       component: {
         name: 'Task',
+        passProps: {
+          title: 'Add task'
+        },
+        options: {
+          topBar: {
+            visible: false,
+            height: 0,
+          },
+        },
       },
     });
   };
 
   return (
-    <NewTodo
+    <BottomBar
       onAddButtonPress={handleAddButtonPress}
     />
   );

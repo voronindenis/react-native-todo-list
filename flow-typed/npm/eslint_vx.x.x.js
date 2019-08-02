@@ -2074,7 +2074,7 @@ declare module 'eslint/lib/rules/no-restricted-imports.js' {
   declare module.exports: $Exports<'eslint/lib/rules/no-restricted-imports'>;
 }
 declare module 'eslint/lib/rules/no-restricted-modules.js' {
-  declare module.exports: $Exports<'eslint/lib/rules/no-restricted-modules'>;
+  declare module.exports: $Exports<'eslint/lib/rules/no-restricted-components'>;
 }
 declare module 'eslint/lib/rules/no-restricted-properties.js' {
   declare module.exports: $Exports<'eslint/lib/rules/no-restricted-properties'>;

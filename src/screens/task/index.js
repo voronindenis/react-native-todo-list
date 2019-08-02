@@ -1,3 +1,3 @@
 // @flow
 
-export { TaskController as Task } from './task-controller';
+export { Task } from './task';

@@ -1,6 +1,6 @@
 // @flow
 
-export const HEADER_MOCKS = {
+export const TOP_BAR_MOCKS = {
   TASK_COUNTER: 255,
 };
 

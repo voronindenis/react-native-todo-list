@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { useTodoList, deleteTodoItem } from '@/hooks/useTodoList';
+import { useTodoList, deleteTodoItem } from '../../../../hooks/useTodoList/index';
 import { TodoList } from './todo-list';
 
 export const TodoListController = () => {

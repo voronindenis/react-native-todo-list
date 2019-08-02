@@ -15,4 +15,5 @@ export const COLORS_ENUM = Object.freeze({
 export const FONT_SIZES_ENUM = Object.freeze({
   TITLE_FONT_SIZE: 24,
   BASE_FONT_SIZE: 12,
+  INPUT_FONT_SIZE: 16,
 });

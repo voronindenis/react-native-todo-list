@@ -2,11 +2,11 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS_ENUM } from '@/constants/common';
-import { IconButton } from '@/components/icon-button';
+import { COLORS_ENUM } from '../../../../constants/common';
+import { IconButton } from '../../../../components/icon-button/index';
 
-type NewTodoPropsType = {
-  onAddButtonPress: () => null,
+type BottomBarPropsType = {
+  onAddButtonPress: () => void,
 };
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const NewTodo = (props: NewTodoPropsType) => (
+export const BottomBar = (props: BottomBarPropsType) => (
   <LinearGradient
     colors={[
       COLORS_ENUM.WHITE_TRANSPARENT_COLOR,
