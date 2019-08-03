@@ -3,22 +3,18 @@
 export const CATEGORIES_LIST = [
   {
     id: 1,
-    text: 'All',
-  },
-  {
-    id: 2,
     text: 'Important',
   },
   {
-    id: 3,
+    id: 2,
     text: 'Decision',
   },
   {
-    id: 4,
+    id: 3,
     text: 'Extended',
   },
   {
-    id: 5,
+    id: 4,
     text: 'Daily',
   },
 ];
