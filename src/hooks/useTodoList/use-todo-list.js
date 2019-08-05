@@ -5,5 +5,7 @@ import { TodoListStateContext, TodoListDispatchContext } from './todo-list-provi
 export const useTodoList = () => {
   const state = useContext(TodoListStateContext);
   const dispatch = useContext(TodoListDispatchContext);
+  console.log(state);
+  console.log(new Error('trace'));
   return [state, dispatch];
 };

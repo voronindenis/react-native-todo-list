@@ -1,9 +1,10 @@
 // @flow
 import { filterByIndex } from '@/utils/filterByIndex';
 import { DELETE_TODO_ITEM, ADD_TODO_ITEM } from './todo-list-actions';
+import type { TodoItemType } from './todo-list-types';
 
 export const todoListReducer = (
-  state: Array<{ text: string }> = [], { type, payload }: { type: string, payload: any }
+  state: Array<TodoItemType> = [], { type, payload }: { type: string, payload: any }
 ) => {
   switch (type) {
     case ADD_TODO_ITEM:

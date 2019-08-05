@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../constants/common';
+import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../../../../constants/common';
 
 const styles = StyleSheet.create({
   field: {

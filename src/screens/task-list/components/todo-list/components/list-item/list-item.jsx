@@ -3,8 +3,8 @@ import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { FONT_SIZES_ENUM, COLORS_ENUM } from '../../../../../../constants/common';
-import { IconButton } from '../../../../../../components/icon-button/index';
+import { FONT_SIZES_ENUM, COLORS_ENUM } from '@/constants/common';
+import { IconButton } from '@/components/icon-button';
 
 const styles = StyleSheet.create({
   swipeContainer: {

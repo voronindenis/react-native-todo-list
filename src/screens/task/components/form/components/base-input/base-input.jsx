@@ -1,9 +1,11 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  StyleSheet, Text, TextInput, View , TouchableWithoutFeedback,
+} from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
+import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../../../../constants/common';
 
 const styles = StyleSheet.create({
   field: {
@@ -28,17 +30,26 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     margin: 8,
     paddingHorizontal: 24,
-    paddingVertical: 16,
     fontSize: FONT_SIZES_ENUM.INPUT_FONT_SIZE,
     fontFamily: "Montserrat-Medium",
   },
   input: {
-    flex: 5,
+    flex: 6,
+    marginVertical: 16,
   },
   iconWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginVertical: 16,
+  },
+  touchableIconWrapper: {
     flex:1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    borderLeftWidth: 1,
+    borderLeftColor: COLORS_ENUM.GREY_COLOR,
+    minHeight: 64,
   }
 });
 
@@ -49,6 +60,7 @@ type BaseInputPropsType = {
   onChangeText: (value?: string) => void;
   onFocus?: () => void,
   onBlur?: () => void,
+  onIconPress?: () => void,
   icon?: string,
   mask?: {
     type: string,
@@ -89,13 +101,31 @@ export const BaseInput = (props: BaseInputPropsType) => (
       }
       {
         props.icon && (
-          <View style={styles.iconWrapper}>
-            <Icon
-              name={props.icon}
-              size={FONT_SIZES_ENUM.INPUT_FONT_SIZE}
-              color={COLORS_ENUM.GREY_COLOR}
-            />
-          </View>
+          <>
+            {
+              props.onIconPress
+                ? (
+                  <TouchableWithoutFeedback onPress={props.onIconPress}>
+                    <View style={styles.touchableIconWrapper}>
+                      <Icon
+                        name={props.icon}
+                        size={FONT_SIZES_ENUM.INPUT_FONT_SIZE}
+                        color={COLORS_ENUM.BLACK_COLOR}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
+                )
+                : (
+                  <View style={styles.iconWrapper}>
+                    <Icon
+                      name={props.icon}
+                      size={FONT_SIZES_ENUM.INPUT_FONT_SIZE}
+                      color={COLORS_ENUM.GREY_COLOR}
+                    />
+                  </View>
+                )
+            }
+          </>
         )
       }
     </View>

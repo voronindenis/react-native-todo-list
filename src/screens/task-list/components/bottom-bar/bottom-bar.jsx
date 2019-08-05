@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS_ENUM } from '../../../../constants/common';
-import { IconButton } from '../../../../components/icon-button/index';
+import { COLORS_ENUM } from '@/constants/common';
+import { IconButton } from '@/components/icon-button';
 
 type BottomBarPropsType = {
   onAddButtonPress: () => void,

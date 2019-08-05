@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
+import { Navigation } from 'react-native-navigation';
 import { TopBar } from './top-bar';
-import {Navigation} from 'react-native-navigation';
 
 type TopBarControllerPropsType = {
   title: string,

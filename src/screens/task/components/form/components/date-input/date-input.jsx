@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 import { DatePickerIOS, View, StyleSheet } from 'react-native';
-import { convertDateInstanceToDateTime, replaceDateToMonths } from '@/utils/date-utils';
-import { COLORS_ENUM } from '@/constants/common';
-import { BaseInput } from '../base-input';
+import { convertDateInstanceToDateTime, replaceDateToMonths } from '../../../../../../utils/date-utils';
+import { COLORS_ENUM } from '../../../../../../constants/common';
+import { BaseInput } from '../base-input/index';
 
 const styles = StyleSheet.create({
   datePickerWrapper: {

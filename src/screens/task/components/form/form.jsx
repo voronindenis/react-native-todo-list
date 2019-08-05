@@ -1,11 +1,12 @@
 // @flow
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
-import { TextInput } from '@/components/inputs/text-input';
-import { DateInput } from '@/components/inputs/date-input';
-import { TextArea } from '@/components/inputs/text-area';
-import { SelectInput } from '@/components/inputs/select-input';
+import { COLORS_ENUM } from '@/constants/common';
+import { IconButton } from '@/components/icon-button';
+import { TextInput } from './components/text-input';
+import { DateInput } from './components/date-input';
+import { TextArea } from './components/text-area';
+import { SelectInput } from './components/select-input';
 import { CATEGORIES_LIST } from './form-constants';
 
 const styles = StyleSheet.create({
@@ -14,12 +15,19 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: COLORS_ENUM.DEFAULT_BACKGROUND_COLOR,
   },
+  addButtonWrapper: {
+    width: '100%',
+    height: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 type FormPropsType = {
   description: string,
   getDate: (value: string) => void,
   getSignificance: (value: string) => void,
+  onAddButtonPress: () => void,
   onDescriptionInputChange: (value: string) => void,
   onTitleInputChange: (value: string) => void,
   title: string
@@ -49,6 +57,12 @@ export const Form = (props: FormPropsType) => (
         getValue={props.getSignificance}
         options={CATEGORIES_LIST}
       />
+      <View style={styles.addButtonWrapper}>
+        <IconButton
+          iconName="plus"
+          onPress={props.onAddButtonPress}
+        />
+      </View>
     </View>
   </>
 );

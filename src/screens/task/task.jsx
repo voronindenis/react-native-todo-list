@@ -22,6 +22,8 @@ export const Task = (props: TaskPropsType) => (
       componentId={props.componentId}
       title={props.title}
     />
-    <Form />
+    <Form
+      componentId={props.componentId}
+    />
   </View>
 );
