@@ -1,7 +1,8 @@
 // @flow
 import * as React from 'react';
 import { Navigation } from 'react-native-navigation';
-import {useTodoList, addTodoItem, deleteTodoItem} from '@/hooks/useTodoList';
+import { useTodoList, addTodoItem } from '@/hooks/useTodoList';
+import { convertDateInstanceToDate } from '@/utils/date-utils';
 import { Form } from './form';
 
 type FormControllerPropsType = {
@@ -33,14 +34,13 @@ export const FormController = (props: FormControllerPropsType) => {
     setSignificance(value);
   };
 
-  const [state, dispatch] = useTodoList();
-
+  const [, dispatch] = useTodoList();
   const handleAddButtonPress = React.useCallback(async () => {
     dispatch(addTodoItem({
-      key: Math.random(), // TODO: [Denis Voronin] replace this on Uuid
+      key: Math.random().toString(), // TODO: [Denis Voronin] replace this on Uuid
       title,
       category: significance,
-      expirationDate: date,
+      expirationDate: convertDateInstanceToDate(date),
       isDone: false,
     }));
     await Navigation.pop(props.componentId, { passProps: { needUpdate: true } });

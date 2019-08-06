@@ -116,14 +116,14 @@ export const ListItem = (props: ListItemPropsType) => {
               props.isDone
                 ? (
                   <Icon
-                    name="circle"
+                    name="check-circle"
                     size={FONT_SIZES_ENUM.TITLE_FONT_SIZE}
                     color={COLORS_ENUM.BLACK_COLOR}
                   />
                 )
                 : (
                   <Icon
-                    name="check-circle"
+                    name="circle"
                     size={FONT_SIZES_ENUM.TITLE_FONT_SIZE}
                     color={COLORS_ENUM.BLACK_COLOR}
                   />

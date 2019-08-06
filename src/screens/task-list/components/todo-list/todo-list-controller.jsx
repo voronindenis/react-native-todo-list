@@ -9,7 +9,7 @@ export const TodoListController = () => {
   const handleDeleteTodoItem = React.useCallback((index: number) => {
     dispatch(deleteTodoItem(index));
   }, [dispatch]);
-  console.log('work', state);
+
   return (
     <TodoList
       todoList={state}

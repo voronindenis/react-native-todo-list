@@ -53,7 +53,6 @@ export const DateInput = (props: DateInputPropsType) => {
   };
 
   const handleDatePickerChange = (date: typeof Date) => {
-    console.log('handleDatePickerChange', date);
     setDate(date);
     setDateTime(convertDateInstanceToDateTime(date));
   };

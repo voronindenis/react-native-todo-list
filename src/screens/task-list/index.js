@@ -1,3 +1,3 @@
 // @flow
 
-export { TaskList } from './task-list';
+export { TaskListController as TaskList } from './task-list-controller';

@@ -17,13 +17,10 @@ type TaskListPropsType = {
   componentId: string,
 };
 
-export const TaskList = (props: TaskListPropsType) => {
-  console.log(props);
-  return (
-    <View style={styles.container}>
-      <TopBar />
-      <TodoList />
-      <BottomBar componentId={props.componentId} />
-    </View>
-  );
-}
+export const TaskList = (props: TaskListPropsType) => (
+  <View style={styles.container}>
+    <TopBar />
+    <TodoList />
+    <BottomBar componentId={props.componentId} />
+  </View>
+);

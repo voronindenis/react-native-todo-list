@@ -3,9 +3,8 @@ import { useContext } from 'react';
 import { TodoListStateContext, TodoListDispatchContext } from './todo-list-provider';
 
 export const useTodoList = () => {
-  const state = useContext(TodoListStateContext);
+  const getState = useContext(TodoListStateContext);
+  const state = getState();
   const dispatch = useContext(TodoListDispatchContext);
-  console.log(state);
-  console.log(new Error('trace'));
   return [state, dispatch];
 };
