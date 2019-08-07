@@ -1,19 +1,45 @@
 // @flow
 import * as React from 'react';
+import { Navigation } from 'react-native-navigation';
 import { useTodoList, deleteTodoItem } from '@/hooks/useTodoList';
+import type { TodoItemType } from '@/hooks/useTodoList';
 import { TodoList } from './todo-list';
 
-export const TodoListController = () => {
+type TodoListControllerPropsType = {
+  componentId: string,
+};
+
+export const TodoListController = (props: TodoListControllerPropsType) => {
   const [state, dispatch] = useTodoList();
 
-  const handleDeleteTodoItem = React.useCallback((index: number) => {
-    dispatch(deleteTodoItem(index));
+  const handleDeleteTodoItem = React.useCallback((key: string) => {
+    dispatch(deleteTodoItem(key));
   }, [dispatch]);
+
+  const handleEditTodoItem = async (todoItem: TodoItemType) => {
+    console.log('work');
+    await Navigation.push(props.componentId, {
+      component: {
+        name: 'Task',
+        passProps: {
+          title: 'Edit task',
+          item: todoItem,
+        },
+        options: {
+          topBar: {
+            visible: false,
+            height: 0,
+          },
+        },
+      },
+    });
+  };
 
   return (
     <TodoList
       todoList={state}
       onDeleteTodoItem={handleDeleteTodoItem}
+      onEditTodoItem={handleEditTodoItem}
     />
   );
 };

@@ -5,6 +5,7 @@ import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { FONT_SIZES_ENUM, COLORS_ENUM } from '@/constants/common';
 import { IconButton } from '@/components/icon-button';
+import type { TodoItemType } from '@/hooks/useTodoList';
 
 const styles = StyleSheet.create({
   swipeContainer: {
@@ -60,11 +61,10 @@ const styles = StyleSheet.create({
 });
 
 type ListItemPropsType = {
-  title: string,
-  category: string,
-  expirationDate: string,
-  onPress: () => void,
-  isDone: boolean,
+  item: TodoItemType,
+  isClose: boolean,
+  onDeleteButtonPress: (key: string) => void,
+  onEditTodoItem: (todoItem: TodoItemType) => void,
 };
 
 export const ListItem = (props: ListItemPropsType) => {
@@ -73,7 +73,7 @@ export const ListItem = (props: ListItemPropsType) => {
       component: (
         <IconButton
           iconName="pencil-alt"
-          onPress={() => null}
+          onPress={() => props.onEditTodoItem(props.item)}
         />
       ),
       backgroundColor: 'transparent',
@@ -82,15 +82,16 @@ export const ListItem = (props: ListItemPropsType) => {
       component: (
         <IconButton
           iconName="trash-alt"
-          onPress={() => null}
+          onPress={() => props.onDeleteButtonPress(props.item.key)}
         />
       ),
       backgroundColor: 'transparent',
     },
   ];
-
+  console.log(props);
   return (
     <Swipeout
+      cloase={props.isClose}
       style={styles.swipeContainer}
       right={swipeOutButtons}
     >
@@ -98,22 +99,22 @@ export const ListItem = (props: ListItemPropsType) => {
         <View style={styles.infoContainer}>
           <View style={styles.upperInfoContainer}>
             <Text style={styles.upperInfoContainer}>
-              {props.title}
+              {props.item.title}
             </Text>
           </View>
           <View style={styles.lowerInfoContainer}>
             <Text style={styles.category}>
-              {props.category}
+              {props.item.category}
             </Text>
             <Text style={styles.expirationDate}>
-              {props.expirationDate}
+              {props.item.expirationDate}
             </Text>
           </View>
         </View>
         <View style={styles.doneSignContainer}>
           <Text>
             {
-              props.isDone
+              props.item.isDone
                 ? (
                   <Icon
                     name="check-circle"

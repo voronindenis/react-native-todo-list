@@ -7,7 +7,8 @@ import { ListItem } from './components/list-item/index'
 
 type TodoListPropsType = {
   todoList: Array<TodoItemType>,
-  onDeleteTodoItem: (index: number) => void,
+  onDeleteTodoItem: (key: string) => void,
+  onEditTodoItem: (todoItem: TodoItemType) => void
 };
 
 const styles = StyleSheet.create({
@@ -28,13 +29,11 @@ export const TodoList = (props: TodoListPropsType) => (
     <FlatList
       style={styles.list}
       data={props.todoList}
-      renderItem={({ item }: TodoItemType, index: number) => (
+      renderItem={({ item }: TodoItemType) => (
         <ListItem
-          title={item.title}
-          category={item.category}
-          expirationDate={item.expirationDate}
-          onPress={() => props.onDeleteTodoItem(index)}
-          isDone={item.isDone}
+          item={item}
+          onDeleteButtonPress={props.onDeleteTodoItem}
+          onEditTodoItem={props.onEditTodoItem}
         />
       )}
     />

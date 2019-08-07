@@ -25,11 +25,15 @@ const styles = StyleSheet.create({
 
 type FormPropsType = {
   description: string,
+  dateFromItem: string,
   getDate: (value: string) => void,
   getSignificance: (value: string) => void,
+  isEditMode: boolean,
   onAddButtonPress: () => void,
+  onEditButtonPress: () => void,
   onDescriptionInputChange: (value: string) => void,
   onTitleInputChange: (value: string) => void,
+  significance: string,
   title: string
 };
 
@@ -45,6 +49,7 @@ export const Form = (props: FormPropsType) => (
         label="Expiration date"
         icon="clock"
         getValue={props.getDate}
+        initialDate={props.dateFromItem}
       />
       <TextArea
         label="Description"
@@ -56,11 +61,12 @@ export const Form = (props: FormPropsType) => (
         label="Significance"
         getValue={props.getSignificance}
         options={CATEGORIES_LIST}
+        initialValue={props.significance}
       />
       <View style={styles.addButtonWrapper}>
         <IconButton
-          iconName="plus"
-          onPress={props.onAddButtonPress}
+          iconName={props.isEditMode ? "pencil-alt" : "plus"}
+          onPress={props.isEditMode ? props.onEditButtonPress : props.onAddButtonPress}
         />
       </View>
     </View>

@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
 import { DatePickerIOS, View, StyleSheet } from 'react-native';
-import { convertDateInstanceToDateTime, replaceDateToMonths } from '../../../../../../utils/date-utils';
-import { COLORS_ENUM } from '../../../../../../constants/common';
+import { convertDateInstanceToDateTime, replaceDateToMonths } from '@/utils/date-utils';
+import { COLORS_ENUM } from '@/constants/common';
 import { BaseInput } from '../base-input/index';
 
 const styles = StyleSheet.create({
@@ -19,15 +19,24 @@ const styles = StyleSheet.create({
 type DateInputPropsType = {
   label: string,
   icon?: string,
+  initialDate?: string,
   getValue?: (value: string) => value,
 };
 
 const dateTimeRegExp = /^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/;
 
 export const DateInput = (props: DateInputPropsType) => {
-  const [dateTime, setDateTime] = React.useState(convertDateInstanceToDateTime(new Date()));
+  const [dateTime, setDateTime] = React.useState(
+    props.initialDate
+      ? props.initialDate
+      : convertDateInstanceToDateTime(new Date())
+  );
 
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(
+    props.initialDate
+      ? new Date(replaceDateToMonths(props.initialDate))
+      : new Date()
+    );
 
   const [isOpen, setDatePickerVisible] = React.useState(false);
 

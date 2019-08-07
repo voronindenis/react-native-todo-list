@@ -1,22 +1,27 @@
 // @flow
 import * as React from 'react';
+import uuidv4 from 'uuid/v4';
 import { Navigation } from 'react-native-navigation';
-import { useTodoList, addTodoItem } from '@/hooks/useTodoList';
-import { convertDateInstanceToDate } from '@/utils/date-utils';
+import { useTodoList, addTodoItem, editTodoItem } from '@/hooks/useTodoList';
+import type { TodoItemType } from '@/hooks/useTodoList';
+import { convertDateInstanceToDateTime } from '@/utils/date-utils';
 import { Form } from './form';
 
 type FormControllerPropsType = {
   componentId: string,
+  item: ?TodoItemType,
 };
 
 export const FormController = (props: FormControllerPropsType) => {
-  const [title, setTitle] = React.useState('');
+  const [isEditMode] = React.useState(!!props.item);
 
-  const [date, setDate] = React.useState('');
+  const [title, setTitle] = React.useState(props.item.title || '');
 
-  const [description, setDescription] = React.useState('');
+  const [date, setDate] = React.useState();
 
-  const [significance, setSignificance] = React.useState('');
+  const [description, setDescription] = React.useState(props.item.description || '');
+
+  const [significance, setSignificance] = React.useState(props.item.category || '');
 
   const handleTitleInputChange = (value: string) => {
     setTitle(value)
@@ -35,25 +40,42 @@ export const FormController = (props: FormControllerPropsType) => {
   };
 
   const [, dispatch] = useTodoList();
+
   const handleAddButtonPress = React.useCallback(async () => {
     dispatch(addTodoItem({
-      key: Math.random().toString(), // TODO: [Denis Voronin] replace this on Uuid
+      key: uuidv4(),
       title,
+      description,
       category: significance,
-      expirationDate: convertDateInstanceToDate(date),
+      expirationDate: convertDateInstanceToDateTime(date),
       isDone: false,
     }));
-    await Navigation.pop(props.componentId, { passProps: { needUpdate: true } });
-  }, [dispatch, title, significance, date, props.componentId]);
+    await Navigation.pop(props.componentId);
+  }, [dispatch, title, significance, date, description, props.componentId]);
+
+  const handleEditButtonPress = React.useCallback(async () => {
+    dispatch(editTodoItem({
+      ...props.item,
+      title,
+      description,
+      category: significance,
+      expirationDate: convertDateInstanceToDateTime(date),
+    }));
+    await Navigation.pop(props.componentId);
+  }, [dispatch, title, significance, date, description, props.componentId]);
 
   return (
     <Form
       description={description}
+      dateFromItem={props.item.expirationDate}
       getDate={getDate}
       getSignificance={getSignificance}
+      isEditMode={isEditMode}
       onAddButtonPress={handleAddButtonPress}
+      onEditButtonPress={handleEditButtonPress}
       onDescriptionInputChange={handleDescriptionInputChange}
       onTitleInputChange={handleTitleInputChange}
+      significance={significance}
       title={title}
     />
   );

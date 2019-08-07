@@ -17,26 +17,14 @@ export const convertDateInstanceToDateTime = (d: typeof Date) => {
 };
 
 /**
- * Convert Date instance to date format DD.MM.YYYY
- *
- * @param d {Date}
- * @returns {string}
- */
-export const convertDateInstanceToDate = (d: typeof Date) => {
-  const year = d.getFullYear();
-  const date = d.getDate();
-  const month = d.getMonth() + 1;
-  return `${addZero(date)}.${addZero(month)}.${year}`;
-};
-
-/**
  * replace date to month for creating correct date
  *
- * @param dateTime {string}
+ * @param value {string}
  * @returns {string}
  */
-export const replaceDateToMonths = (dateTime: string) => {
-  const [fullDate, time] = dateTime.split(' ');
+export const replaceDateToMonths = (value: string) => {
+  console.log(value, typeof value);
+  const [fullDate, time] = value.split(' ');
   const [date, month, year] = fullDate.split('-');
   return `${month}-${date}-${year} ${time}`;
 };

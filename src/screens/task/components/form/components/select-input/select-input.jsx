@@ -23,12 +23,13 @@ type OptionType = {
 
 type SelectInputPropsType = {
   getValue: (value: string) => value,
+  initialValue?: string,
   label: 'string',
   options: Array<OptionType>,
 };
 
 export const SelectInput = (props: SelectInputPropsType) => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(props.initialValue || '');
 
   const [isOpen, setPickerVisible] = React.useState(false);
 

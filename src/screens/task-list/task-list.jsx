@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 import { TopBar } from './components/top-bar';
 import { TodoList } from './components/todo-list';
 import { BottomBar } from './components/bottom-bar';
@@ -20,7 +20,7 @@ type TaskListPropsType = {
 export const TaskList = (props: TaskListPropsType) => (
   <View style={styles.container}>
     <TopBar />
-    <TodoList />
+    <TodoList componentId={props.componentId} />
     <BottomBar componentId={props.componentId} />
   </View>
 );
