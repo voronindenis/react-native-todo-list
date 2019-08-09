@@ -15,13 +15,13 @@ type FormControllerPropsType = {
 export const FormController = (props: FormControllerPropsType) => {
   const [isEditMode] = React.useState(!!props.item);
 
-  const [title, setTitle] = React.useState(props.item.title || '');
+  const [title, setTitle] = React.useState((props.item && props.item.title) || '');
 
   const [date, setDate] = React.useState();
 
-  const [description, setDescription] = React.useState(props.item.description || '');
+  const [description, setDescription] = React.useState((props.item && props.item.description) || '');
 
-  const [significance, setSignificance] = React.useState(props.item.category || '');
+  const [significance, setSignificance] = React.useState((props.item && props.item.category) || '');
 
   const handleTitleInputChange = (value: string) => {
     setTitle(value)
@@ -67,7 +67,7 @@ export const FormController = (props: FormControllerPropsType) => {
   return (
     <Form
       description={description}
-      dateFromItem={props.item.expirationDate}
+      dateFromItem={(props.item && props.item.expirationDate) || undefined}
       getDate={getDate}
       getSignificance={getSignificance}
       isEditMode={isEditMode}

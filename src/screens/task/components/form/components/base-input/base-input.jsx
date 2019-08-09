@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: COLORS_ENUM.GREY_COLOR,
     minHeight: 64,
+  },
+  picker: {
+    flex:1,
+    backgroundColor: 'red',
   }
 });
 
@@ -66,6 +70,8 @@ type BaseInputPropsType = {
     type: string,
     format: string,
   },
+  picker?: boolean,
+  onPickerPress?: () => void,
 };
 
 export const BaseInput = (props: BaseInputPropsType) => (
@@ -73,30 +79,42 @@ export const BaseInput = (props: BaseInputPropsType) => (
     <Text style={styles.label}>{props.label}</Text>
     <View style={styles.inputWrapper}>
       {
-        props.mask
+        props.picker
           ? (
-            <TextInputMask
-              type={props.mask.type}
-              options={{
-                format: props.mask.format
-              }}
-              caretHidden={props.caretHidden}
-              value={props.value}
-              onChangeText={props.onChangeText}
-              style={styles.input}
-              onFocus={props.onFocus}
-              onBlur={props.onBlur}
-            />
+            <TouchableWithoutFeedback style={styles.picker} onPress={props.onPickerPress}>
+              <Text>{props.value}</Text>
+            </TouchableWithoutFeedback>
           )
           : (
-          <TextInput
-            caretHidden={props.caretHidden}
-            value={props.value}
-            style={styles.input}
-            onChangeText={props.onChangeText}
-            onFocus={props.onFocus}
-            onBlur={props.onBlur}
-          />
+            <>
+              {
+                props.mask
+                  ? (
+                    <TextInputMask
+                      type={props.mask.type}
+                      options={{
+                        format: props.mask.format
+                      }}
+                      caretHidden={props.caretHidden}
+                      value={props.value}
+                      onChangeText={props.onChangeText}
+                      style={styles.input}
+                      onFocus={props.onFocus}
+                      onBlur={props.onBlur}
+                    />
+                  )
+                  : (
+                    <TextInput
+                      caretHidden={props.caretHidden}
+                      value={props.value}
+                      style={styles.input}
+                      onChangeText={props.onChangeText}
+                      onFocus={props.onFocus}
+                      onBlur={props.onBlur}
+                    />
+                  )
+              }
+            </>
           )
       }
       {

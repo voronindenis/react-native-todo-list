@@ -41,15 +41,10 @@ export const SelectInput = (props: SelectInputPropsType) => {
 
   const handlePickerChange = (value: string) => {
     setValue(value);
-    setPickerVisible(false);
   };
 
-  const handleSelectInputFocus = () => {
-    setPickerVisible(true);
-  };
-
-  const handleSelectInputBlur = () => {
-    setPickerVisible(false);
+  const handlePickerPress = () => {
+    setPickerVisible(!isOpen);
   };
 
   const handleIconPress = () => {
@@ -59,14 +54,12 @@ export const SelectInput = (props: SelectInputPropsType) => {
   return (
     <>
       <BaseInput
-        caretHidden={isOpen}
         label={props.label}
-        onChangeText={noop}
-        onBlur={handleSelectInputBlur}
-        onFocus={handleSelectInputFocus}
         onIconPress={handleIconPress}
         value={value}
         icon={isOpen ? 'chevron-up' : 'chevron-down'}
+        picker
+        onPickerPress={handlePickerPress}
       />
       {
         isOpen && (

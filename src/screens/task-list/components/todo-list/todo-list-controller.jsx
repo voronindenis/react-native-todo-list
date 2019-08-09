@@ -17,7 +17,6 @@ export const TodoListController = (props: TodoListControllerPropsType) => {
   }, [dispatch]);
 
   const handleEditTodoItem = async (todoItem: TodoItemType) => {
-    console.log('work');
     await Navigation.push(props.componentId, {
       component: {
         name: 'Task',

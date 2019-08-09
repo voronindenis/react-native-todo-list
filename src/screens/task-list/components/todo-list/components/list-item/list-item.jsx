@@ -88,10 +88,10 @@ export const ListItem = (props: ListItemPropsType) => {
       backgroundColor: 'transparent',
     },
   ];
-  console.log(props);
+
   return (
     <Swipeout
-      cloase={props.isClose}
+      close={props.isClose}
       style={styles.swipeContainer}
       right={swipeOutButtons}
     >

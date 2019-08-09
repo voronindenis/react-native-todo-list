@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 type FormPropsType = {
   description: string,
-  dateFromItem: string,
+  dateFromItem: ?string,
   getDate: (value: string) => void,
   getSignificance: (value: string) => void,
   isEditMode: boolean,
