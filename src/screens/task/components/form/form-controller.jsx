@@ -24,7 +24,7 @@ export const FormController = (props: FormControllerPropsType) => {
   const [significance, setSignificance] = React.useState((props.item && props.item.category) || '');
 
   const handleTitleInputChange = (value: string) => {
-    setTitle(value)
+    setTitle(value);
   };
 
   const handleDescriptionInputChange = (value: string) => {
@@ -42,7 +42,7 @@ export const FormController = (props: FormControllerPropsType) => {
   const [, dispatch] = useTodoList();
 
   const handleAddButtonPress = React.useCallback(async () => {
-    dispatch(addTodoItem({
+    await dispatch(addTodoItem({
       key: uuidv4(),
       title,
       description,

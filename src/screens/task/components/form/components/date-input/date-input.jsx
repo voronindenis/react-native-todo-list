@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DatePickerIOS, View, StyleSheet } from 'react-native';
 import { convertDateInstanceToDateTime, replaceDateToMonths } from '@/utils/date-utils';
 import { COLORS_ENUM } from '@/constants/common';
-import { BaseInput } from '../base-input/index';
+import { BaseInput } from '../base-input';
 
 const styles = StyleSheet.create({
   datePickerWrapper: {
@@ -22,8 +22,6 @@ type DateInputPropsType = {
   initialDate?: string,
   getValue?: (value: string) => value,
 };
-
-const dateTimeRegExp = /^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/;
 
 export const DateInput = (props: DateInputPropsType) => {
   const [dateTime, setDateTime] = React.useState(
@@ -46,36 +44,23 @@ export const DateInput = (props: DateInputPropsType) => {
     }
   }, [props.getValue, date]);
 
-  const handleDateInputChange = (value: string) => {
-    if (dateTimeRegExp.test(value)) {
-      setDate(new Date(replaceDateToMonths(value)));
-    }
-    setDateTime(value);
-  };
-
-  const handleDateInputFocus = () => {
-    setDatePickerVisible(true)
-  };
-
-  const handleDateInputBlur = () => {
-    setDatePickerVisible(false)
-  };
-
   const handleDatePickerChange = (date: typeof Date) => {
     setDate(date);
     setDateTime(convertDateInstanceToDateTime(date));
+  };
+
+  const handlePickerPress = () => {
+    setDatePickerVisible(!isOpen);
   };
 
   return (
     <>
       <BaseInput
         label={props.label}
-        onChangeText={handleDateInputChange}
-        onBlur={handleDateInputBlur}
-        onFocus={handleDateInputFocus}
         value={dateTime}
         icon={props.icon}
-        mask={{ type: 'datetime', format: 'DD-MM-YYYY HH:mm' }}
+        picker
+        onPickerPress={handlePickerPress}
       />
       {
         isOpen && (

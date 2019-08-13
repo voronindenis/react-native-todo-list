@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../../../../constants/common';
+import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
 
 const styles = StyleSheet.create({
   field: {
@@ -52,16 +52,21 @@ const styles = StyleSheet.create({
     minHeight: 64,
   },
   picker: {
-    flex:1,
-    backgroundColor: 'red',
+    flex: 6,
+    marginVertical: 16,
+    justifyContent: 'center',
+  },
+  pickerText: {
+    fontSize: FONT_SIZES_ENUM.INPUT_FONT_SIZE,
+    fontFamily: "Montserrat-Medium",
   }
 });
 
 type BaseInputPropsType = {
-  caretHidden: boolean,
+  caretHidden?: boolean,
   label: string,
   value: string,
-  onChangeText: (value?: string) => void;
+  onChangeText?: (value?: string) => void;
   onFocus?: () => void,
   onBlur?: () => void,
   onIconPress?: () => void,
@@ -81,8 +86,10 @@ export const BaseInput = (props: BaseInputPropsType) => (
       {
         props.picker
           ? (
-            <TouchableWithoutFeedback style={styles.picker} onPress={props.onPickerPress}>
-              <Text>{props.value}</Text>
+            <TouchableWithoutFeedback onPress={props.onPickerPress}>
+              <View style={styles.picker}>
+                <Text style={styles.pickerText}>{props.value}</Text>
+              </View>
             </TouchableWithoutFeedback>
           )
           : (

@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 import { Picker, View, StyleSheet } from 'react-native';
-import { noop } from '../../../../../../utils/noop';
-import { BaseInput } from '../base-input/index';
-import { COLORS_ENUM } from '../../../../../../constants/common';
+import { head } from '@/utils/head';
+import { COLORS_ENUM } from '@/constants/common';
+import { BaseInput } from '../base-input';
 
 const styles = StyleSheet.create({
   pickerWrapper: {
@@ -29,7 +29,7 @@ type SelectInputPropsType = {
 };
 
 export const SelectInput = (props: SelectInputPropsType) => {
-  const [value, setValue] = React.useState(props.initialValue || '');
+  const [value, setValue] = React.useState(props.initialValue || head(props.options)['text']);
 
   const [isOpen, setPickerVisible] = React.useState(false);
 
@@ -41,6 +41,7 @@ export const SelectInput = (props: SelectInputPropsType) => {
 
   const handlePickerChange = (value: string) => {
     setValue(value);
+    setPickerVisible(!isOpen);
   };
 
   const handlePickerPress = () => {

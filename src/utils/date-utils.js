@@ -23,7 +23,6 @@ export const convertDateInstanceToDateTime = (d: typeof Date) => {
  * @returns {string}
  */
 export const replaceDateToMonths = (value: string) => {
-  console.log(value, typeof value);
   const [fullDate, time] = value.split(' ');
   const [date, month, year] = fullDate.split('-');
   return `${month}-${date}-${year} ${time}`;

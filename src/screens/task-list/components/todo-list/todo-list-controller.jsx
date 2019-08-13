@@ -10,7 +10,23 @@ type TodoListControllerPropsType = {
 };
 
 export const TodoListController = (props: TodoListControllerPropsType) => {
-  const [state, dispatch] = useTodoList();
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
+
+  const [state, dispatch, subscribe] = useTodoList();
+
+  const handleChange = () => {
+    forceUpdate();
+  };
+
+  React.useEffect(() => {
+    const listener = Navigation.events().registerComponentDidAppearListener(
+      () => {
+        forceUpdate();
+        subscribe(handleChange.bind(this));
+      }
+    );
+    return () => listener.remove();
+  }, [subscribe]);
 
   const handleDeleteTodoItem = React.useCallback((key: string) => {
     dispatch(deleteTodoItem(key));
