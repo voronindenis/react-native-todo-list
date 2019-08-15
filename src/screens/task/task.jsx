@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 type TaskPropsType = {
   componentId: string,
-  title: string,
+  title?: string,
   item?: TodoItemType,
 };
 

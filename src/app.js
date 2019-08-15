@@ -4,7 +4,7 @@ import { registerScreens } from '@/screens/register-screens';
 
 export function start() {
   registerScreens();
-  Navigation.events().registerAppLaunchedListener(async () => {
+  Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
         stack: {

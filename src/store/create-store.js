@@ -1,6 +1,9 @@
 // @flow
+import type { ApplicationStateType } from '@/hooks/useTodoList';
 
-export function createStore<R, S>(reducer: R, initialState: S) {
+type ReducerType = (state: ApplicationStateType, action: { type: string, payload: any }) => ApplicationStateType;
+
+export function createStore(reducer: ReducerType, initialState: ApplicationStateType) {
   let state = initialState;
   const curReducer = reducer;
   let listener = () => {};

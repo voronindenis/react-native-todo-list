@@ -31,7 +31,7 @@ export const FormController = (props: FormControllerPropsType) => {
     setDescription(value);
   };
 
-  const getDate = (value: string) => {
+  const getDate = (value: Date) => {
     setDate(value);
   };
 

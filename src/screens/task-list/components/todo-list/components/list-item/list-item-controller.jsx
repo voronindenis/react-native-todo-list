@@ -6,7 +6,7 @@ import type { TodoItemType } from '@/hooks/useTodoList';
 type ListItemControllerPropsType = {
   item: TodoItemType,
   onDeleteButtonPress: (key: string) => void,
-  onEditTodoItem: (todoItem: TodoItemType) => void,
+  onEditTodoItem: (todoItem: TodoItemType) => Promise<void>,
 };
 
 export const ListItemController = (props: ListItemControllerPropsType) => {

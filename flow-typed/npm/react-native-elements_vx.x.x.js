@@ -440,8 +440,14 @@ declare module 'react-native-elements/src/divider/__tests__/Divider.js' {
 declare module 'react-native-elements/src/divider/Divider.js' {
   declare module.exports: $Exports<'react-native-elements/src/divider/Divider'>;
 }
+declare module 'react-native-elements/src/top-bar/__tests__/TopBar' {
+  declare module.exports: any;
+}
 declare module 'react-native-elements/src/header/__tests__/Header.js' {
   declare module.exports: $Exports<'react-native-elements/src/top-bar/__tests__/TopBar'>;
+}
+declare module 'react-native-elements/src/top-bar/TopBar' {
+  declare module.exports: any;
 }
 declare module 'react-native-elements/src/header/Header.js' {
   declare module.exports: $Exports<'react-native-elements/src/top-bar/TopBar'>;

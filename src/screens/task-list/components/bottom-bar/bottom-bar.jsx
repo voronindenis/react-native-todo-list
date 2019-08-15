@@ -6,7 +6,7 @@ import { COLORS_ENUM } from '@/constants/common';
 import { IconButton } from '@/components/icon-button';
 
 type BottomBarPropsType = {
-  onAddButtonPress: () => void,
+  onAddButtonPress: () => Promise<void>,
 };
 
 const styles = StyleSheet.create({

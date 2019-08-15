@@ -1,14 +1,15 @@
 // @flow
 import * as React from 'react';
+import type { ApplicationStateType } from './todo-list-types';
 
-export const TodoListStateContext = React.createContext();
-export const TodoListDispatchContext = React.createContext();
-export const TodoListSubscribeContext = React.createContext();
+export const TodoListStateContext = React.createContext<any>();
+export const TodoListDispatchContext = React.createContext<any>();
+export const TodoListSubscribeContext = React.createContext<any>();
 
 type ProviderPropsType = {
   children?: React.Node,
-  dispatch: (payload: any) => void,
-  getState: () => Object, //TODO [Denis Voronin] Type it
+  dispatch: (payload: any) => Object,
+  getState: () => ApplicationStateType,
   subscribe: (func: Function) => void;
 };
 

@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
 });
 
 type TopBarPropsType = {
-  onBackButtonPress: () => void,
+  onBackButtonPress: () => Promise<void>,
   onMenuButtonPress: () => void,
-  title: string,
+  title?: string,
 };
 
 export const TopBar = (props: TopBarPropsType) => (

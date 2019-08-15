@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 type DateInputPropsType = {
   label: string,
   icon?: string,
-  initialDate?: string,
-  getValue?: (value: string) => value,
+  initialDate?: ?string,
+  getValue?: (value: Date) => void,
 };
 
 export const DateInput = (props: DateInputPropsType) => {
@@ -44,7 +44,7 @@ export const DateInput = (props: DateInputPropsType) => {
     }
   }, [props.getValue, date]);
 
-  const handleDatePickerChange = (date: typeof Date) => {
+  const handleDatePickerChange = (date: Date) => {
     setDate(date);
     setDateTime(convertDateInstanceToDateTime(date));
     setDatePickerVisible(!isOpen);

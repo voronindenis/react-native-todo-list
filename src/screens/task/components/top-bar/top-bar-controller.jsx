@@ -4,7 +4,7 @@ import { Navigation } from 'react-native-navigation';
 import { TopBar } from './top-bar';
 
 type TopBarControllerPropsType = {
-  title: string,
+  title?: string,
   componentId: string,
 };
 

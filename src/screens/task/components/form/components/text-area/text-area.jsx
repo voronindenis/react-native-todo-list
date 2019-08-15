@@ -39,7 +39,7 @@ type TextAreaPropsType = {
   label: string,
   numberOfLines: number,
   value: string,
-  onChangeText: (value?: string) => void;
+  onChangeText: (value: string) => void;
 };
 
 export const TextArea = (props: TextAreaPropsType) => (

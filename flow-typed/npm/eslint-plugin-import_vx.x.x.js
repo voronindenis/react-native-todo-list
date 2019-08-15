@@ -355,6 +355,9 @@ declare module 'eslint-plugin-import/lib/rules/no-dynamic-require.js' {
 declare module 'eslint-plugin-import/lib/rules/no-extraneous-dependencies.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-extraneous-dependencies'>;
 }
+declare module 'eslint-plugin-import/lib/rules/no-internal-components' {
+  declare module.exports: any;
+}
 declare module 'eslint-plugin-import/lib/rules/no-internal-modules.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-internal-components'>;
 }
@@ -376,6 +379,9 @@ declare module 'eslint-plugin-import/lib/rules/no-named-export.js' {
 declare module 'eslint-plugin-import/lib/rules/no-namespace.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-namespace'>;
 }
+declare module 'eslint-plugin-import/lib/rules/no-nodejs-components' {
+  declare module.exports: any;
+}
 declare module 'eslint-plugin-import/lib/rules/no-nodejs-modules.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-nodejs-components'>;
 }
@@ -393,6 +399,9 @@ declare module 'eslint-plugin-import/lib/rules/no-unassigned-import.js' {
 }
 declare module 'eslint-plugin-import/lib/rules/no-unresolved.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-unresolved'>;
+}
+declare module 'eslint-plugin-import/lib/rules/no-unused-components' {
+  declare module.exports: any;
 }
 declare module 'eslint-plugin-import/lib/rules/no-unused-modules.js' {
   declare module.exports: $Exports<'eslint-plugin-import/lib/rules/no-unused-components'>;

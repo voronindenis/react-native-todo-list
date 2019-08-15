@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
 });
 
 type OptionType = {
-  id: 'string',
-  text: 'string',
+  id: string,
+  text: string,
 }
 
 type SelectInputPropsType = {
-  getValue: (value: string) => value,
+  getValue: (value: string) => void,
   initialValue?: string,
-  label: 'string',
+  label: string,
   options: Array<OptionType>,
 };
 

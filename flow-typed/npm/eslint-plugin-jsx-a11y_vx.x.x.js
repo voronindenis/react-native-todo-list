@@ -1126,6 +1126,9 @@ declare module 'eslint-plugin-jsx-a11y/lib/util/implicitRoles/select.js' {
 declare module 'eslint-plugin-jsx-a11y/lib/util/implicitRoles/tbody.js' {
   declare module.exports: $Exports<'eslint-plugin-jsx-a11y/lib/util/implicitRoles/tbody'>;
 }
+declare module 'eslint-plugin-jsx-a11y/lib/util/implicitRoles/text-area' {
+  declare module.exports: any;
+}
 declare module 'eslint-plugin-jsx-a11y/lib/util/implicitRoles/textarea.js' {
   declare module.exports: $Exports<'eslint-plugin-jsx-a11y/lib/util/implicitRoles/text-area'>;
 }

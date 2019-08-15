@@ -66,7 +66,7 @@ type BaseInputPropsType = {
   caretHidden?: boolean,
   label: string,
   value: string,
-  onChangeText?: (value?: string) => void;
+  onChangeText?: (value: string) => void;
   onFocus?: () => void,
   onBlur?: () => void,
   onIconPress?: () => void,

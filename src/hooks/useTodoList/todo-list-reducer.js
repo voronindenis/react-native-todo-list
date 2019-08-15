@@ -5,7 +5,7 @@ import { editTodoItem } from './todo-list-utils';
 
 export const todoListReducer = (
   state: ApplicationStateType = [], { type, payload }: { type: string, payload: any }
-) => {
+): ApplicationStateType => {
   switch (type) {
     case ADD_TODO_ITEM:
       return [...state, payload];
