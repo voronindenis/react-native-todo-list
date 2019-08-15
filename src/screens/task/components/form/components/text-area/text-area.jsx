@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 16,
     minHeight: 64,
+    height: 128,
     backgroundColor: COLORS_ENUM.WHITE_COLOR,
     borderRadius: 16,
     shadowColor: COLORS_ENUM.SHADOW_COLOR,
@@ -51,6 +52,7 @@ export const TextArea = (props: TextAreaPropsType) => (
         value={props.value}
         style={styles.input}
         onChangeText={props.onChangeText}
+        blurOnSubmit
       />
     </View>
   </View>

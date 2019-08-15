@@ -78,7 +78,7 @@ type BaseInputPropsType = {
   picker?: boolean,
   onPickerPress?: () => void,
 };
-
+// TODO: [Denis Voronin] Split into several components
 export const BaseInput = (props: BaseInputPropsType) => (
   <View style={styles.field}>
     <Text style={styles.label}>{props.label}</Text>
@@ -108,6 +108,7 @@ export const BaseInput = (props: BaseInputPropsType) => (
                       style={styles.input}
                       onFocus={props.onFocus}
                       onBlur={props.onBlur}
+                      returnKeyType="done"
                     />
                   )
                   : (
@@ -118,6 +119,7 @@ export const BaseInput = (props: BaseInputPropsType) => (
                       onChangeText={props.onChangeText}
                       onFocus={props.onFocus}
                       onBlur={props.onBlur}
+                      returnKeyType="done"
                     />
                   )
               }

@@ -47,6 +47,7 @@ export const DateInput = (props: DateInputPropsType) => {
   const handleDatePickerChange = (date: typeof Date) => {
     setDate(date);
     setDateTime(convertDateInstanceToDateTime(date));
+    setDatePickerVisible(!isOpen);
   };
 
   const handlePickerPress = () => {
@@ -69,6 +70,7 @@ export const DateInput = (props: DateInputPropsType) => {
               date={date}
               onDateChange={handleDatePickerChange}
               locale="en"
+              returnKeyType="done"
             />
           </View>
         )
