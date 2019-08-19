@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const todoListSchema = new Schema({
-  title: String,
-  categoryId: String,
-  description: String,
-  expirationDate: String,
-  isDone: Boolean,
-});
+const { Schema } = mongoose;
 
-module.exports = mongoose.model('TodoList', todoListSchema);
+const todoItemSchema = new Schema(
+  {
+    title: { type: String },
+    categoryId: { type: Schema.Types.ObjectId },
+    description: { type: String },
+    expirationDate: { type: String },
+    isDone: { type: Boolean },
+  },
+  { collection: 'todo_list' }
+);
+
+module.exports = mongoose.model('TodoItem', todoItemSchema);

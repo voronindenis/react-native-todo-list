@@ -1,20 +1,20 @@
 const graphql = require('graphql');
-const TodoList = require('../models/todo-list-scheme');
-const CategoriesList = require('../models/categories-list-scheme');
+const TodoListModel = require('../models/todo-list-scheme');
+const CategoriesListModel = require('../models/categories-list-scheme');
 
 const {
-  GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLSchema, GraphQLID, GraphQLList,
+  GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull,
 } = graphql;
 
 const CategoryType = new GraphQLObjectType({
   name: 'Category',
   fields: () => ({
     id: { type: GraphQLID },
-    text: { type: GraphQLString },
+    text: { type: new GraphQLNonNull(GraphQLString) },
     taskList: {
       type: new GraphQLList(TodoItemType), /* eslint no-use-before-define:0 */
       resolve(parent) {
-        return TodoList.find({ categoryId: parent.id });
+        return TodoListModel.find({ categoryId: parent.id });
       },
     },
   }),
@@ -24,47 +24,136 @@ const TodoItemType = new GraphQLObjectType({
   name: 'TodoItem',
   fields: () => ({
     id: { type: GraphQLID },
-    title: { type: GraphQLString },
+    title: { type: new GraphQLNonNull(GraphQLString) },
     category: {
       type: CategoryType,
       resolve(parent) {
-        return CategoriesList.findById(parent.categoryId);
+        return CategoriesListModel.findById(parent.categoryId);
       },
     },
-    description: { type: GraphQLString },
-    expirationDate: { type: GraphQLString },
-    isDone: { type: GraphQLBoolean },
+    description: { type: new GraphQLNonNull(GraphQLString) },
+    expirationDate: { type: new GraphQLNonNull(GraphQLString) },
+    isDone: { type: new GraphQLNonNull(GraphQLBoolean) },
   }),
 });
 
 const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    todoItem: {
+    getTodoItem: {
       type: TodoItemType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        console.log(TodoList.findById(args.id), args);
-        return TodoList.findById(args.id);
+        return TodoListModel.findById(args.id);
       },
     },
-    category: {
+    getCategory: {
       type: CategoryType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return CategoriesList.findById(args.id);
+        return CategoriesListModel.findById(args.id);
       },
     },
-    taskList: {
+    getTaskList: {
       type: new GraphQLList(TodoItemType),
       resolve() {
-        return TodoList.find({});
+        return TodoListModel.find({});
       },
     },
-    categoriesList: {
+    getCategoriesList: {
       type: new GraphQLList(CategoryType),
       resolve() {
-        return CategoriesList.find({});
+        return CategoriesListModel.find({});
+      },
+    },
+  },
+});
+
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addTodoItem: {
+      type: TodoItemType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        categoryId: { type: GraphQLID },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        expirationDate: { type: new GraphQLNonNull(GraphQLString) },
+        isDone: { type: new GraphQLNonNull(GraphQLBoolean) },
+      },
+      resolve(parent, args) {
+        const todoListItem = new TodoListModel({
+          title: args.title,
+          categoryId: args.categoryId,
+          description: args.description,
+          expirationDate: args.expirationDate,
+          isDone: args.isDone,
+        });
+        return todoListItem.save();
+      },
+    },
+    addCategory: {
+      type: CategoryType,
+      args: {
+        text: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        const category = new CategoriesListModel({
+          text: args.text,
+        });
+        return category.save();
+      },
+    },
+    deleteTodoItem: {
+      type: TodoItemType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return TodoListModel.findByIdAndRemove(args.id);
+      }
+    },
+    deleteCategory: {
+      type: CategoryType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return CategoriesListModel.findByIdAndRemove(args.id);
+      }
+    },
+    updateTodoItem: {
+      type: TodoItemType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        categoryId: { type: GraphQLID },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        expirationDate: { type: new GraphQLNonNull(GraphQLString) },
+        isDone: { type: new GraphQLNonNull(GraphQLBoolean) },
+      },
+      resolve(parent, args) {
+        return TodoListModel.findByIdAndUpdate(
+          args.id,
+          { $set: {
+            title: args.title,
+              categoryId: args.categoryId,
+              description: args.description,
+              expirationDate: args.expirationDate,
+              isDone: args.isDone,
+            } },
+          { new: true },
+        );
+      },
+    },
+    updateCategory: {
+      type: CategoryType,
+      args: {
+        id: { type: GraphQLID },
+        text: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        return CategoriesListModel.findByIdAndUpdate(
+          args.id,
+          { $set: { text: args.text } },
+          { new: true },
+        );
       },
     },
   },
@@ -72,4 +161,5 @@ const Query = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   query: Query,
+  mutation: Mutation,
 });

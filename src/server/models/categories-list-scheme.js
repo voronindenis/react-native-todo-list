@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const categoriesListSchema = new Schema({
-  text: String,
-});
+const categoryItemSchema = new Schema(
+  {
+    text: { type: String },
+  },
+  { collection: 'categories_list' }
+);
 
-module.exports = mongoose.model('CategoriesList', categoriesListSchema);
+module.exports = mongoose.model('CategoryItem', categoryItemSchema);

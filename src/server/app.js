@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const schema = require('./schema/schema');
 
 mongoose.connect(
-  'mongodb+srv://todo_list_db_admin:test123P@cluster0-6mlwz.mongodb.net/test?retryWrites=true&w=majority',
-  { useMongoClien: true },
-  );
+  'mongodb+srv://todo_list_db_admin:test123P@cluster0-6mlwz.mongodb.net/todo_list_db?retryWrites=true&w=majority',
+  { useNewUrlParser: true },
+);
 
 const app = express();
 const PORT = 3005;
