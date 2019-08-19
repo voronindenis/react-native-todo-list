@@ -40,27 +40,27 @@ const TodoItemType = new GraphQLObjectType({
 const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    getTodoItem: {
+    todoItem: {
       type: TodoItemType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return TodoListModel.findById(args.id);
       },
     },
-    getCategory: {
+    category: {
       type: CategoryType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return CategoriesListModel.findById(args.id);
       },
     },
-    getTaskList: {
+    todoList: {
       type: new GraphQLList(TodoItemType),
       resolve() {
         return TodoListModel.find({});
       },
     },
-    getCategoriesList: {
+    categoriesList: {
       type: new GraphQLList(CategoryType),
       resolve() {
         return CategoriesListModel.find({});
@@ -109,14 +109,14 @@ const Mutation = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return TodoListModel.findByIdAndRemove(args.id);
-      }
+      },
     },
     deleteCategory: {
       type: CategoryType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return CategoriesListModel.findByIdAndRemove(args.id);
-      }
+      },
     },
     updateTodoItem: {
       type: TodoItemType,
@@ -131,13 +131,15 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         return TodoListModel.findByIdAndUpdate(
           args.id,
-          { $set: {
-            title: args.title,
+          {
+            $set: {
+              title: args.title,
               categoryId: args.categoryId,
               description: args.description,
               expirationDate: args.expirationDate,
               isDone: args.isDone,
-            } },
+            },
+          },
           { new: true },
         );
       },

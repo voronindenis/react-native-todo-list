@@ -1,9 +1,12 @@
 // @flow
 
 export type TodoItemType = {
-  key: string,
+  id: string,
   title: string,
-  category: string,
+  category: {
+    id: string,
+    text: string,
+  },
   description: string,
   expirationDate: string,
   isDone: boolean,

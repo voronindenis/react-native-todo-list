@@ -1,7 +1,7 @@
 // @flow
 import { DELETE_TODO_ITEM, ADD_TODO_ITEM, EDIT_TODO_ITEM } from './todo-list-actions';
 import type { TodoItemType, ApplicationStateType } from './todo-list-types';
-import { editTodoItem } from './todo-list-utils';
+import { findAndReplaceById } from '../../utils/find-and-replace-by-id';
 
 export const todoListReducer = (
   state: ApplicationStateType = [], { type, payload }: { type: string, payload: any }
@@ -10,7 +10,7 @@ export const todoListReducer = (
     case ADD_TODO_ITEM:
       return [...state, payload];
     case EDIT_TODO_ITEM:
-      return editTodoItem(state, payload);
+      return findAndReplaceById(state, payload);
     case DELETE_TODO_ITEM: {
       return state.filter((item: TodoItemType) => item.key !== payload);
     }

@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
 type ListItemPropsType = {
   item: TodoItemType,
   isClose: boolean,
-  onDeleteButtonPress: (key: string) => void,
-  onEditTodoItem: (todoItem: TodoItemType) => void,
+  onDeleteButtonPress: (id: string) => void,
+  onEditTodoItem: (id: string) => void,
 };
 
 export const ListItem = (props: ListItemPropsType) => {
@@ -73,7 +73,7 @@ export const ListItem = (props: ListItemPropsType) => {
       component: (
         <IconButton
           iconName="pencil-alt"
-          onPress={() => props.onEditTodoItem(props.item)}
+          onPress={() => props.onEditTodoItem(props.item.id)}
         />
       ),
       backgroundColor: 'transparent',
@@ -82,7 +82,7 @@ export const ListItem = (props: ListItemPropsType) => {
       component: (
         <IconButton
           iconName="trash-alt"
-          onPress={() => props.onDeleteButtonPress(props.item.key)}
+          onPress={() => props.onDeleteButtonPress(props.item.id)}
         />
       ),
       backgroundColor: 'transparent',
@@ -104,7 +104,7 @@ export const ListItem = (props: ListItemPropsType) => {
           </View>
           <View style={styles.lowerInfoContainer}>
             <Text style={styles.category}>
-              {props.item.category}
+              {props.item.category.text}
             </Text>
             <Text style={styles.expirationDate}>
               {props.item.expirationDate}

@@ -2,26 +2,113 @@
 import * as React from 'react';
 import uuidv4 from 'uuid/v4';
 import { Navigation } from 'react-native-navigation';
-import { useTodoList, addTodoItem, editTodoItem } from '@/hooks/useTodoList';
-import type { TodoItemType } from '@/hooks/useTodoList';
+import {useMutation, useQuery} from '@apollo/react-hooks';
+import { gql } from "apollo-boost";
+import { useTodoList, addTodoItem } from '@/hooks/useTodoList';
 import { convertDateInstanceToDateTime } from '@/utils/date-utils';
+import { findAndReplaceById } from '@/utils/find-and-replace-by-id';
 import { Form } from './form';
+import type {TodoItemType} from '@/hooks/useTodoList';
 
 type FormControllerPropsType = {
   componentId: string,
-  item: ?TodoItemType,
+  id: ?string,
 };
 
-export const FormController = (props: FormControllerPropsType) => {
-  const [isEditMode] = React.useState(!!props.item);
+const GET_TODO_ITEM = gql`
+  query getTodoItem($id: ID!) {
+    todoItem(id: $id) {
+      id
+      title
+      category {
+        id
+        text
+      }
+      description
+      expirationDate
+      isDone
+    }
+  }
+`;
 
-  const [title, setTitle] = React.useState((props.item && props.item.title) || '');
+const UPDATE_TODO_ITEM = gql`
+  mutation updateTodoItem(
+    $id: ID,
+    $title: String!,
+    $categoryId: ID,
+    $description: String!,
+    $expirationDate: String!,
+    $isDone: Boolean!
+  ) {
+    updateTodoItem(
+      id: $id,
+      title: $title,
+      categoryId: $categoryId
+      description: $description,
+      expirationDate: $expirationDate,
+      isDone: $isDone
+    ) {
+      id,
+      title,
+      category,
+      description,
+      expirationDate,
+      isDone,
+    }
+  }
+`;
+
+const GET_TODO_LIST = gql`
+  query getTodoList {
+    todoList {
+      id
+      title
+      category {
+        id
+        text
+      }
+      description
+      expirationDate
+      isDone
+    }
+  }
+`;
+
+export const FormController = (props: FormControllerPropsType) => {
+  console.log(props);
+  const { loading, error, data } = useQuery(GET_TODO_ITEM, { variables: { id: props.id } });
+  console.log(data);
+
+  const [isEditMode] = React.useState(!!props.id);
+
+  const [title, setTitle] = React.useState('');
 
   const [date, setDate] = React.useState();
 
-  const [description, setDescription] = React.useState((props.item && props.item.description) || '');
+  const [description, setDescription] = React.useState('');
 
-  const [significance, setSignificance] = React.useState((props.item && props.item.category) || '');
+  const [significance, setSignificance] = React.useState('');
+
+  React.useEffect(() => {
+    if (data.todoItem) {
+      setTitle(data.todoItem.title);
+      setDescription(data.todoItem.description);
+      setSignificance(data.todoItem.category.text);
+    }
+  }, [data]);
+
+  const [ updateTodoItem ] = useMutation(
+    UPDATE_TODO_ITEM,
+    {
+      update(cache, {data: { updateTodoItem }}) {
+        const { todoList } = cache.readQuery({ query: GET_TODO_LIST });
+        cache.writeQuery({
+          query: GET_TODO_LIST,
+          data: { todoList: findAndReplaceById(todoList, updateTodoItem) },
+        });
+      }
+    }
+  );
 
   const handleTitleInputChange = (value: string) => {
     setTitle(value);
@@ -54,20 +141,20 @@ export const FormController = (props: FormControllerPropsType) => {
   }, [dispatch, title, significance, date, description, props.componentId]);
 
   const handleEditButtonPress = React.useCallback(async () => {
-    dispatch(editTodoItem({
-      ...props.item,
+    updateTodoItem({ variables: {
+      ...data.todoItem,
       title,
       description,
       category: significance,
       expirationDate: convertDateInstanceToDateTime(date),
-    }));
+    } });
     await Navigation.pop(props.componentId);
-  }, [dispatch, title, significance, date, description, props.componentId]);
+  }, [title, significance, date, description, props.componentId]);
 
   return (
     <Form
       description={description}
-      dateFromItem={(props.item && props.item.expirationDate) || undefined}
+      dateFromItem={(data.todoItem && data.todoItem.expirationDate) || undefined}
       getDate={getDate}
       getSignificance={getSignificance}
       isEditMode={isEditMode}

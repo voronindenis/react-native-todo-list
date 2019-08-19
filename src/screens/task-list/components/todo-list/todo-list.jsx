@@ -7,8 +7,8 @@ import { ListItem } from './components/list-item/index'
 
 type TodoListPropsType = {
   todoList: Array<TodoItemType>,
-  onDeleteTodoItem: (key: string) => void,
-  onEditTodoItem: (todoItem: TodoItemType) => Promise<void>
+  onDeleteTodoItem: (id: string) => void,
+  onEditTodoItem: (id: string) => Promise<void>
 };
 
 const styles = StyleSheet.create({
@@ -36,6 +36,7 @@ export const TodoList = (props: TodoListPropsType) => (
           onEditTodoItem={props.onEditTodoItem}
         />
       )}
+      keyExtractor={(item: TodoItemType) => item.id}
     />
   </View>
 );

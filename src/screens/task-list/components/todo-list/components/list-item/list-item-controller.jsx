@@ -5,21 +5,21 @@ import type { TodoItemType } from '@/hooks/useTodoList';
 
 type ListItemControllerPropsType = {
   item: TodoItemType,
-  onDeleteButtonPress: (key: string) => void,
-  onEditTodoItem: (todoItem: TodoItemType) => Promise<void>,
+  onDeleteButtonPress: (id: string) => void,
+  onEditTodoItem: (id: string) => Promise<void>,
 };
 
 export const ListItemController = (props: ListItemControllerPropsType) => {
   const [isClose, setCloseMode] = React.useState(true);
 
-  const handleDeleteButtonPress = (key: string) => {
+  const handleDeleteButtonPress = (id: string) => {
     setCloseMode(true);
-    props.onDeleteButtonPress(key);
+    props.onDeleteButtonPress(id);
   };
 
-  const handleEditButtonPress = (todoItem: TodoItemType) => {
+  const handleEditButtonPress = (id: string) => {
     setCloseMode(true);
-    props.onEditTodoItem(todoItem);
+    props.onEditTodoItem(id).catch(e => console.log(e));
   };
 
   return (
