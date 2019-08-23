@@ -1,14 +1,12 @@
 // @flow
 import * as React from 'react';
-import uuidv4 from 'uuid/v4';
+import { Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import {useMutation, useQuery} from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gql } from "apollo-boost";
-import { useTodoList, addTodoItem } from '@/hooks/useTodoList';
 import { convertDateInstanceToDateTime } from '@/utils/date-utils';
 import { findAndReplaceById } from '@/utils/find-and-replace-by-id';
 import { Form } from './form';
-import type {TodoItemType} from '@/hooks/useTodoList';
 
 type FormControllerPropsType = {
   componentId: string,
@@ -50,7 +48,38 @@ const UPDATE_TODO_ITEM = gql`
     ) {
       id,
       title,
-      category,
+      category {
+        id,
+        text,
+      },
+      description,
+      expirationDate,
+      isDone,
+    }
+  }
+`;
+
+const CREATE_TODO_ITEM = gql`
+  mutation addTodoItem(
+    $title: String!,
+    $categoryId: ID,
+    $description: String!,
+    $expirationDate: String!,
+    $isDone: Boolean!
+  ) {
+    addTodoItem(
+      title: $title,
+      categoryId: $categoryId
+      description: $description,
+      expirationDate: $expirationDate,
+      isDone: $isDone
+    ) {
+      id,
+      title,
+      category {
+        id,
+        text,
+      },
       description,
       expirationDate,
       isDone,
@@ -74,28 +103,42 @@ const GET_TODO_LIST = gql`
   }
 `;
 
-export const FormController = (props: FormControllerPropsType) => {
-  console.log(props);
-  const { loading, error, data } = useQuery(GET_TODO_ITEM, { variables: { id: props.id } });
-  console.log(data);
+const GET_CATEGORY_LIST = gql`
+  query getCategoriesList {
+    categoriesList {
+      id
+      text
+    }
+  }
+`;
 
+export const FormController = (props: FormControllerPropsType) => {
+  const { data: categories } = useQuery(GET_CATEGORY_LIST);
+
+  const [isLoaded, setLoadedStatus] = React.useState(false);
   const [isEditMode] = React.useState(!!props.id);
+  let todoItem = {};
+  if (isEditMode) {
+    const { data: todo } = useQuery(GET_TODO_ITEM, { variables: { id: props.id } });
+    todoItem = todo;
+  }
 
   const [title, setTitle] = React.useState('');
-
   const [date, setDate] = React.useState();
-
   const [description, setDescription] = React.useState('');
-
   const [significance, setSignificance] = React.useState('');
 
   React.useEffect(() => {
-    if (data.todoItem) {
-      setTitle(data.todoItem.title);
-      setDescription(data.todoItem.description);
-      setSignificance(data.todoItem.category.text);
+    if (isEditMode && todoItem.todoItem) {
+      setTitle(todoItem.todoItem.title);
+      setDescription(todoItem.todoItem.description);
+      setSignificance(todoItem.todoItem.category.id);
+      setLoadedStatus(true);
     }
-  }, [data]);
+    if (!isEditMode && categories.categoriesList) {
+      setLoadedStatus(true);
+    }
+  }, [todoItem, categories]);
 
   const [ updateTodoItem ] = useMutation(
     UPDATE_TODO_ITEM,
@@ -105,6 +148,19 @@ export const FormController = (props: FormControllerPropsType) => {
         cache.writeQuery({
           query: GET_TODO_LIST,
           data: { todoList: findAndReplaceById(todoList, updateTodoItem) },
+        });
+      }
+    }
+  );
+
+  const [ addTodoItem ] = useMutation(
+    CREATE_TODO_ITEM,
+    {
+      update(cache, {data: { addTodoItem }}) {
+        const { todoList } = cache.readQuery({ query: GET_TODO_LIST });
+        cache.writeQuery({
+          query: GET_TODO_LIST,
+          data: { todoList: todoList.concat(addTodoItem) },
         });
       }
     }
@@ -126,35 +182,36 @@ export const FormController = (props: FormControllerPropsType) => {
     setSignificance(value);
   };
 
-  const [, dispatch] = useTodoList();
-
   const handleAddButtonPress = React.useCallback(async () => {
-    await dispatch(addTodoItem({
-      key: uuidv4(),
-      title,
-      description,
-      category: significance,
-      expirationDate: convertDateInstanceToDateTime(date),
-      isDone: false,
-    }));
+    addTodoItem({ variables: {
+        title,
+        description,
+        categoryId: significance,
+        expirationDate: convertDateInstanceToDateTime(date),
+        isDone: false,
+      } });
     await Navigation.pop(props.componentId);
-  }, [dispatch, title, significance, date, description, props.componentId]);
+  }, [title, significance, date, description, props.componentId]);
 
   const handleEditButtonPress = React.useCallback(async () => {
     updateTodoItem({ variables: {
-      ...data.todoItem,
+      ...todoItem.todoItem,
       title,
       description,
-      category: significance,
+      categoryId: significance,
       expirationDate: convertDateInstanceToDateTime(date),
     } });
     await Navigation.pop(props.componentId);
   }, [title, significance, date, description, props.componentId]);
 
+  if (!isLoaded) {
+    return <Text>Loading...</Text>
+  }
+
   return (
     <Form
       description={description}
-      dateFromItem={(data.todoItem && data.todoItem.expirationDate) || undefined}
+      dateFromItem={(todoItem.todoItem && todoItem.todoItem.expirationDate) || undefined}
       getDate={getDate}
       getSignificance={getSignificance}
       isEditMode={isEditMode}
@@ -164,6 +221,7 @@ export const FormController = (props: FormControllerPropsType) => {
       onTitleInputChange={handleTitleInputChange}
       significance={significance}
       title={title}
+      categories={categories.categoriesList}
     />
   );
 };

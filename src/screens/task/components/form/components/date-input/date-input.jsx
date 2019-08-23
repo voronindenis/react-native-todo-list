@@ -38,15 +38,10 @@ export const DateInput = (props: DateInputPropsType) => {
 
   const [isOpen, setDatePickerVisible] = React.useState(false);
 
-  React.useEffect(() => {
-    if (props.getValue) {
-      props.getValue(date);
-    }
-  }, [props.getValue, date]);
-
   const handleDatePickerChange = (date: Date) => {
     setDate(date);
     setDateTime(convertDateInstanceToDateTime(date));
+    props.getValue(date);
     setDatePickerVisible(!isOpen);
   };
 

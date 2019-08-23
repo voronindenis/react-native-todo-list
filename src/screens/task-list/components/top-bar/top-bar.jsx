@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../../constants/common';
+import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
 import type { CategoryItemType } from './top-bar-types';
 
 const styles = StyleSheet.create({

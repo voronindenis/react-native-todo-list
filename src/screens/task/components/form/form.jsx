@@ -7,7 +7,6 @@ import { TextInput } from './components/text-input';
 import { DateInput } from './components/date-input';
 import { TextArea } from './components/text-area';
 import { SelectInput } from './components/select-input';
-import { CATEGORIES_LIST } from './form-constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,7 +33,8 @@ type FormPropsType = {
   onDescriptionInputChange: (value: string) => void,
   onTitleInputChange: (value: string) => void,
   significance: string,
-  title: string
+  title: string,
+  categories: Array<{ id: string, text: string }>,
 };
 
 export const Form = (props: FormPropsType) => (
@@ -60,7 +60,7 @@ export const Form = (props: FormPropsType) => (
       <SelectInput
         label="Significance"
         getValue={props.getSignificance}
-        options={CATEGORIES_LIST}
+        options={props.categories}
         initialValue={props.significance}
       />
       <View style={styles.addButtonWrapper}>

@@ -28,19 +28,32 @@ type SelectInputPropsType = {
   options: Array<OptionType>,
 };
 
+const findSelectedOptionText = (options: Array<OptionType>, value: string) => {
+  const selectedOption = options.find((option: OptionType) => option.id === value);
+  return selectedOption && selectedOption.text || '';
+};
+
 export const SelectInput = (props: SelectInputPropsType) => {
-  const [value, setValue] = React.useState(props.initialValue || head(props.options)['text']);
+  const [value, setValue] = React.useState(head(props.options)['id']);
+  const [text, setText] = React.useState(findSelectedOptionText(props.options, value));
+
+  React.useEffect(() => {
+    if (props.initialValue) {
+      setValue(props.initialValue);
+      setText(findSelectedOptionText(props.options, props.initialValue));
+    }
+  }, [props.initialValue]);
+
+  React.useEffect(() => {
+    props.getValue(value);
+  }, [value]);
 
   const [isOpen, setPickerVisible] = React.useState(false);
 
-  React.useEffect(() => {
-    if (props.getValue) {
-      props.getValue(value);
-    }
-  }, [props.getValue, value]);
-
   const handlePickerChange = (value: string) => {
     setValue(value);
+    setText(findSelectedOptionText(props.options, value));
+    props.getValue(value);
     setPickerVisible(!isOpen);
   };
 
@@ -51,13 +64,12 @@ export const SelectInput = (props: SelectInputPropsType) => {
   const handleIconPress = () => {
     setPickerVisible(!isOpen);
   };
-
   return (
     <>
       <BaseInput
         label={props.label}
         onIconPress={handleIconPress}
-        value={value}
+        value={text}
         icon={isOpen ? 'chevron-up' : 'chevron-down'}
         picker
         onPickerPress={handlePickerPress}
@@ -71,7 +83,7 @@ export const SelectInput = (props: SelectInputPropsType) => {
             >
               {
                 props.options.map((option: OptionType) => (
-                  <Picker.Item key={option.id} label={option.text} value={option.text} />
+                  <Picker.Item key={option.id} label={option.text} value={option.id} />
                 ))
               }
             </Picker>

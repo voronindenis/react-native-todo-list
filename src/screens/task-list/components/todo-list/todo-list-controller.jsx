@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Navigation } from 'react-native-navigation';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useTodoList } from '@/hooks/useTodoList';
 import type { TodoItemType } from '@/hooks/useTodoList';
 import { TodoList } from './todo-list';
 
@@ -36,35 +35,16 @@ const DELETE_TODO_ITEM = gql`
 `;
 
 export const TodoListController = (props: TodoListControllerPropsType) => {
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
+  const { data } = useQuery(GET_TODO_LIST);
 
-  const [state, dispatch, subscribe] = useTodoList();
-
-  const handleChange = () => {
-    forceUpdate();
-  };
-
-  React.useEffect(() => {
-    const listener = Navigation.events().registerComponentDidAppearListener(
-      () => {
-        forceUpdate();
-        subscribe(handleChange.bind(this));
-      }
-    );
-    return () => listener.remove();
-  }, [subscribe]);
-
-  const { loading, error, data } = useQuery(GET_TODO_LIST);
-  console.log(data);
-
-  const [ updateTodoItem ] = useMutation(
+  const [ deleteTodoItem ] = useMutation(
     DELETE_TODO_ITEM,
     {
-      update(cache, {data: { updateTodoItem }}) {
+      update(cache, {data: { deleteTodoItem }}) {
         const { todoList } = cache.readQuery({ query: GET_TODO_LIST });
         cache.writeQuery({
           query: GET_TODO_LIST,
-          data: {todoList: todoList.filter((todoItem: TodoItemType) => todoItem.id !== updateTodoItem.id)},
+          data: {todoList: todoList.filter((todoItem: TodoItemType) => todoItem.id !== deleteTodoItem.id)},
         });
       }
     }
