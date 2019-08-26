@@ -9,7 +9,7 @@ type TopBarControllerPropsType = {
 };
 
 export const TopBarController = (props: TopBarControllerPropsType) => {
-  const handleBackButtonPress= async () => {
+  const handleBackButtonPress = async () => {
     await Navigation.pop(props.componentId);
   };
 

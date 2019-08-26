@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { ListItem } from './list-item';
-import type { TodoItemType } from '@/hooks/useTodoList';
+import type { TodoItemType } from '../../todo-list-types';
 
 type ListItemControllerPropsType = {
   item: TodoItemType,
@@ -29,5 +29,5 @@ export const ListItemController = (props: ListItemControllerPropsType) => {
       onEditTodoItem={handleEditButtonPress}
       isClose={isClose}
     />
-  )
+  );
 };

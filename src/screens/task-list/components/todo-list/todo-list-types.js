@@ -11,5 +11,3 @@ export type TodoItemType = {
   expirationDate: string,
   isDone: boolean,
 };
-
-export type ApplicationStateType = Array<TodoItemType>;

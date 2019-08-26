@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  StyleSheet, Text, View, ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
 import type { CategoryItemType } from './top-bar-types';
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
     padding: 4,
   },
   lowerContainer: {
@@ -48,15 +50,15 @@ const styles = StyleSheet.create({
   categoryItem: {
     color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
     alignItems: 'center',
-    width: 100
+    width: 100,
   },
   title: {
     color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.TITLE_FONT_SIZE,
-    fontFamily: "Montserrat-Bold",
-    fontWeight: "700",
+    fontFamily: 'Montserrat-Bold',
+    fontWeight: '700',
   },
 });
 
@@ -80,7 +82,10 @@ export const TopBar = (props: TopBarPropsType) => (
       </View>
       <View style={styles.subLowerContainer}>
         <View style={styles.counterContainer}>
-          <Text style={styles.counter}>Total tasks: {props.counter}</Text>
+          <Text style={styles.counter}>
+            Total tasks:
+            {props.counter}
+          </Text>
         </View>
       </View>
     </View>
@@ -95,7 +100,7 @@ export const TopBar = (props: TopBarPropsType) => (
             style={styles.categoryItem}
           >
             {category.text}
-            </Text>
+          </Text>
         ))
       }
     </ScrollView>

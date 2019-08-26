@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { COLORS_ENUM } from '@/constants/common';
-import type { TodoItemType } from '@/hooks/useTodoList/index';
-import { ListItem } from './components/list-item/index'
+import type { TodoItemType } from './todo-list-types';
+import { ListItem } from './components/list-item';
 
 type TodoListPropsType = {
   todoList: Array<TodoItemType>,

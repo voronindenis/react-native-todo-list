@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  StyleSheet, Text, TextInput, View,
+} from 'react-native';
 import { COLORS_ENUM, FONT_SIZES_ENUM } from '../../../../../../constants/common';
 
 const styles = StyleSheet.create({
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
   label: {
     color: COLORS_ENUM.BLACK_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
     margin: 8,
   },
   inputWrapper: {
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     margin: 8,
     padding: 8,
     fontSize: FONT_SIZES_ENUM.INPUT_FONT_SIZE,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
   },
   input: {
     flex: 1,
@@ -47,7 +49,7 @@ export const TextArea = (props: TextAreaPropsType) => (
     <Text style={styles.label}>{props.label}</Text>
     <View style={styles.inputWrapper}>
       <TextInput
-        multiline={true}
+        multiline
         numberOfLines={props.numberOfLines}
         value={props.value}
         style={styles.input}

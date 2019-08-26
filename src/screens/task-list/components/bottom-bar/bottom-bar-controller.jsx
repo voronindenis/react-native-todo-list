@@ -13,7 +13,7 @@ export const BottomBarController = (props: BottomBarControllerPropsType) => {
       component: {
         name: 'Task',
         passProps: {
-          title: 'Add task'
+          title: 'Add task',
         },
         options: {
           topBar: {

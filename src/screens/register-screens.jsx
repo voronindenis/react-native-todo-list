@@ -32,5 +32,5 @@ export function registerScreens() {
         <Task {...props} />
       </ApolloProvider>
     ),
-    );
+  );
 }

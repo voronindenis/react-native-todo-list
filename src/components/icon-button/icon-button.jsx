@@ -7,7 +7,7 @@ import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
 type IconButtonPropsType = {
   onPress: Function,
   iconName: string,
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -22,16 +22,16 @@ const styles = StyleSheet.create({
 });
 
 export const IconButton = (props: IconButtonPropsType) => (
-    <TouchableWithoutFeedback onPress={props.onPress}>
-      <View
-        style={styles.button}
-        onPress={props.onPress}
-      >
-        <Icon
-          name={props.iconName}
-          size={FONT_SIZES_ENUM.TITLE_FONT_SIZE}
-          color={COLORS_ENUM.WHITE_COLOR}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={props.onPress}>
+    <View
+      style={styles.button}
+      onPress={props.onPress}
+    >
+      <Icon
+        name={props.iconName}
+        size={FONT_SIZES_ENUM.TITLE_FONT_SIZE}
+        color={COLORS_ENUM.WHITE_COLOR}
+      />
+    </View>
+  </TouchableWithoutFeedback>
 );

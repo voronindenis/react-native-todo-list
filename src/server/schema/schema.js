@@ -3,7 +3,8 @@ const TodoListModel = require('../models/todo-list-scheme');
 const CategoriesListModel = require('../models/categories-list-scheme');
 
 const {
-  GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull,
+  GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLSchema,
+  GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInt,
 } = graphql;
 
 const CategoryType = new GraphQLObjectType({
@@ -58,6 +59,12 @@ const Query = new GraphQLObjectType({
       type: new GraphQLList(TodoItemType),
       resolve() {
         return TodoListModel.find({});
+      },
+    },
+    todoItemsCount: {
+      type: GraphQLInt,
+      resolve() {
+        return TodoListModel.countDocuments();
       },
     },
     categoriesList: {

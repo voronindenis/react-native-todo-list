@@ -9,6 +9,7 @@
     "dev": "REACT_DEBUGGER='rndebugger-open --open --port 8081' npm run ios",
     "server": "nodemon src/server/app.js",
     "lint": "eslint --ext .js --ext .jsx src",
+    "lint:fix": "eslint --fix --ext .js --ext .jsx src",
     "flow": "flow",
     "flow:coverage": "flow-coverage-report -i 'src/**/*.js' -i 'src/**/*.jsx' -x 'src/__test__/**' -t html -t json -t text --threshold 90",
     "precommit:run": "npm run lint && npm run flow"

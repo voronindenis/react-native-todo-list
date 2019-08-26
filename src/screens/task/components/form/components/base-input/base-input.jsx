@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {
-  StyleSheet, Text, TextInput, View , TouchableWithoutFeedback,
+  StyleSheet, Text, TextInput, View, TouchableWithoutFeedback,
 } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   label: {
     color: COLORS_ENUM.BLACK_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
     margin: 8,
   },
   inputWrapper: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingHorizontal: 24,
     fontSize: FONT_SIZES_ENUM.INPUT_FONT_SIZE,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
   },
   input: {
     flex: 6,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   touchableIconWrapper: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
     borderLeftWidth: 1,
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   pickerText: {
     fontSize: FONT_SIZES_ENUM.INPUT_FONT_SIZE,
-    fontFamily: "Montserrat-Medium",
-  }
+    fontFamily: 'Montserrat-Medium',
+  },
 });
 
 type BaseInputPropsType = {
@@ -100,7 +100,7 @@ export const BaseInput = (props: BaseInputPropsType) => (
                     <TextInputMask
                       type={props.mask.type}
                       options={{
-                        format: props.mask.format
+                        format: props.mask.format,
                       }}
                       caretHidden={props.caretHidden}
                       value={props.value}

@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS_ENUM.WHITE_COLOR,
     fontSize: FONT_SIZES_ENUM.TITLE_FONT_SIZE,
-    fontFamily: "Montserrat-Bold",
-    fontWeight: "700",
+    fontFamily: 'Montserrat-Bold',
+    fontWeight: '700',
   },
 });
 

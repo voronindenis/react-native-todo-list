@@ -5,7 +5,7 @@ import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { FONT_SIZES_ENUM, COLORS_ENUM } from '@/constants/common';
 import { IconButton } from '@/components/icon-button';
-import type { TodoItemType } from '@/hooks/useTodoList';
+import type { TodoItemType } from '../../todo-list-types';
 
 const styles = StyleSheet.create({
   swipeContainer: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS_ENUM.BLACK_COLOR,
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
   },
   lowerInfoContainer: {
     flex: 1,
@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
   category: {
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
     color: COLORS_ENUM.SECONDARY_TEXT_COLOR,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
   },
   expirationDate: {
     fontSize: FONT_SIZES_ENUM.BASE_FONT_SIZE,
     color: COLORS_ENUM.SECONDARY_TEXT_COLOR,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
   },
   doneSignContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 type ListItemPropsType = {

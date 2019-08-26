@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS_ENUM } from '@/constants/common';
 import { IconButton } from '@/components/icon-button';
@@ -27,7 +27,7 @@ export const BottomBar = (props: BottomBarPropsType) => (
       COLORS_ENUM.WHITE_MORE_TRANSPARENT_COLOR,
       COLORS_ENUM.WHITE_LESS_TRANSPARENT_COLOR,
       COLORS_ENUM.WHITE_COLOR,
-      COLORS_ENUM.WHITE_COLOR
+      COLORS_ENUM.WHITE_COLOR,
     ]}
     locations={[0, 0.2, 0.6, 0.8, 1]}
     style={styles.container}

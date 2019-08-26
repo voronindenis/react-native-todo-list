@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     height: 140,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 type FormPropsType = {
@@ -65,7 +65,7 @@ export const Form = (props: FormPropsType) => (
       />
       <View style={styles.addButtonWrapper}>
         <IconButton
-          iconName={props.isEditMode ? "pencil-alt" : "plus"}
+          iconName={props.isEditMode ? 'pencil-alt' : 'plus'}
           onPress={props.isEditMode ? props.onEditButtonPress : props.onAddButtonPress}
         />
       </View>

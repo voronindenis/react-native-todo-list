@@ -20,7 +20,7 @@ type DateInputPropsType = {
   label: string,
   icon?: string,
   initialDate?: ?string,
-  getValue?: (value: Date) => void,
+  getValue: (value: Date) => void,
 };
 
 export const DateInput = (props: DateInputPropsType) => {
@@ -34,14 +34,14 @@ export const DateInput = (props: DateInputPropsType) => {
     props.initialDate
       ? new Date(replaceDateToMonths(props.initialDate))
       : new Date()
-    );
+  );
 
   const [isOpen, setDatePickerVisible] = React.useState(false);
 
-  const handleDatePickerChange = (date: Date) => {
-    setDate(date);
-    setDateTime(convertDateInstanceToDateTime(date));
-    props.getValue(date);
+  const handleDatePickerChange = (dateValue: Date) => {
+    setDate(dateValue);
+    setDateTime(convertDateInstanceToDateTime(dateValue));
+    props.getValue(dateValue);
     setDatePickerVisible(!isOpen);
   };
 

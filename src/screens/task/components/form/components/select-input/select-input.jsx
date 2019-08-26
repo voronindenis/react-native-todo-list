@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 type OptionType = {
   id: string,
   text: string,
-}
+};
 
 type SelectInputPropsType = {
   getValue: (value: string) => void,
@@ -28,13 +28,16 @@ type SelectInputPropsType = {
   options: Array<OptionType>,
 };
 
-const findSelectedOptionText = (options: Array<OptionType>, value: string) => {
+const findSelectedOptionText = (options: Array<OptionType>, value: ?string) => {
+  if (!value) {
+    return head(options).text;
+  }
   const selectedOption = options.find((option: OptionType) => option.id === value);
-  return selectedOption && selectedOption.text || '';
+  return (selectedOption && selectedOption.text) || '';
 };
 
 export const SelectInput = (props: SelectInputPropsType) => {
-  const [value, setValue] = React.useState(head(props.options)['id']);
+  const [value, setValue] = React.useState(head(props.options).id);
   const [text, setText] = React.useState(findSelectedOptionText(props.options, value));
 
   React.useEffect(() => {
@@ -42,18 +45,18 @@ export const SelectInput = (props: SelectInputPropsType) => {
       setValue(props.initialValue);
       setText(findSelectedOptionText(props.options, props.initialValue));
     }
-  }, [props.initialValue]);
+  }, [props.initialValue, props.options]);
 
   React.useEffect(() => {
     props.getValue(value);
-  }, [value]);
+  }, [props, value]);
 
   const [isOpen, setPickerVisible] = React.useState(false);
 
-  const handlePickerChange = (value: string) => {
-    setValue(value);
-    setText(findSelectedOptionText(props.options, value));
-    props.getValue(value);
+  const handlePickerChange = (val: string) => {
+    setValue(val);
+    setText(findSelectedOptionText(props.options, val));
+    props.getValue(val);
     setPickerVisible(!isOpen);
   };
 
