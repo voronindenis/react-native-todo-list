@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 import {
-  StyleSheet, Text, View, ScrollView,
+  StyleSheet, Text, View, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { COLORS_ENUM, FONT_SIZES_ENUM } from '@/constants/common';
-import type { CategoryItemType } from './top-bar-types';
+import type { CategoryItemType } from '../../task-list-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
 type TopBarPropsType = {
   counter: number,
   categories: Array<CategoryItemType>,
+  onCategoryItemPress: (category: CategoryItemType) => void,
 };
 
 export const TopBar = (props: TopBarPropsType) => (
@@ -89,20 +90,23 @@ export const TopBar = (props: TopBarPropsType) => (
         </View>
       </View>
     </View>
-    <ScrollView
+    <FlatList
       contentContainerStyle={styles.lowerContainer}
       horizontal
-    >
-      {
-        props.categories.map((category: CategoryItemType) => (
+      data={props.categories}
+      renderItem={({ item }: { item: CategoryItemType }) => (
+        <TouchableWithoutFeedback
+          key={item.id}
+          onPress={() => props.onCategoryItemPress(item)}
+        >
           <Text
-            key={category.id}
             style={styles.categoryItem}
           >
-            {category.text}
+            {item.text}
           </Text>
-        ))
-      }
-    </ScrollView>
+        </TouchableWithoutFeedback>
+      )}
+      keyExtractor={(item: CategoryItemType) => item.id}
+    />
   </View>
 );

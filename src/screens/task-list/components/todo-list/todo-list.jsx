@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import {
+  StyleSheet, View, FlatList, TouchableWithoutFeedback,
+} from 'react-native';
 import { COLORS_ENUM } from '@/constants/common';
 import type { TodoItemType } from './todo-list-types';
 import { ListItem } from './components/list-item';
@@ -8,7 +10,8 @@ import { ListItem } from './components/list-item';
 type TodoListPropsType = {
   todoList: Array<TodoItemType>,
   onDeleteTodoItem: (id: string) => void,
-  onEditTodoItem: (id: string) => Promise<void>
+  onEditTodoItem: (id: string) => Promise<void>,
+  onTodoItemPress: (isDone: boolean) => void,
 };
 
 const styles = StyleSheet.create({
@@ -30,11 +33,15 @@ export const TodoList = (props: TodoListPropsType) => (
       style={styles.list}
       data={props.todoList}
       renderItem={({ item }: { item: TodoItemType }) => (
-        <ListItem
-          item={item}
-          onDeleteButtonPress={props.onDeleteTodoItem}
-          onEditTodoItem={props.onEditTodoItem}
-        />
+        <TouchableWithoutFeedback
+          onPress={() => props.onTodoItemPress(item.isDone)}
+        >
+          <ListItem
+            item={item}
+            onDeleteButtonPress={props.onDeleteTodoItem}
+            onEditTodoItem={props.onEditTodoItem}
+          />
+        </TouchableWithoutFeedback>
       )}
       keyExtractor={(item: TodoItemType) => item.id}
     />

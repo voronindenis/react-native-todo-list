@@ -1,12 +1,12 @@
 // @flow
 import * as React from 'react';
-import { Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { convertDateInstanceToDateTime } from '@/utils/date-utils';
 import { findAndReplaceById } from '@/utils/find-and-replace-by-id';
-import { GET_TODO_ITEM, GET_TODO_LIST, GET_CATEGORY_LIST } from './form-queries';
-import { UPDATE_TODO_ITEM, CREATE_TODO_ITEM } from './form-mutattions';
+import { GET_TODO_ITEM, GET_TODO_LIST_BY_CATEGORY, GET_CATEGORY_LIST } from '@/queries';
+import { UPDATE_TODO_ITEM, CREATE_TODO_ITEM } from '@/mutations';
+import { BlockLoader } from '@/components/block-loader';
 import { Form } from './form';
 
 type FormControllerPropsType = {
@@ -43,9 +43,9 @@ export const FormController = (props: FormControllerPropsType) => {
     UPDATE_TODO_ITEM,
     {
       update(cache, { data: { updateTodoItem } }) {
-        const { todoList } = cache.readQuery({ query: GET_TODO_LIST });
+        const { todoList } = cache.readQuery({ query: GET_TODO_LIST_BY_CATEGORY });
         cache.writeQuery({
-          query: GET_TODO_LIST,
+          query: GET_TODO_LIST_BY_CATEGORY,
           data: { todoList: findAndReplaceById(todoList, updateTodoItem) },
         });
       },
@@ -56,9 +56,9 @@ export const FormController = (props: FormControllerPropsType) => {
     CREATE_TODO_ITEM,
     {
       update(cache, { data: { addTodoItem } }) {
-        const { todoList } = cache.readQuery({ query: GET_TODO_LIST });
+        const { todoList } = cache.readQuery({ query: GET_TODO_LIST_BY_CATEGORY });
         cache.writeQuery({
-          query: GET_TODO_LIST,
+          query: GET_TODO_LIST_BY_CATEGORY,
           data: { todoList: todoList.concat(addTodoItem) },
         });
       },
@@ -108,7 +108,7 @@ export const FormController = (props: FormControllerPropsType) => {
   }, [updateTodo, todoItem.todoItem, title, description, significance, date, props.componentId]);
 
   if (!isLoaded) {
-    return <Text>Loading...</Text>;
+    return <BlockLoader />;
   }
 
   return (

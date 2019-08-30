@@ -11,6 +11,7 @@ const CategoryType = new GraphQLObjectType({
   name: 'Category',
   fields: () => ({
     id: { type: GraphQLID },
+    isFilter: { type: GraphQLBoolean },
     text: { type: new GraphQLNonNull(GraphQLString) },
     taskList: {
       type: new GraphQLList(TodoItemType), /* eslint no-use-before-define:0 */
@@ -43,14 +44,14 @@ const Query = new GraphQLObjectType({
   fields: {
     todoItem: {
       type: TodoItemType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
         return TodoListModel.findById(args.id);
       },
     },
     category: {
       type: CategoryType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
         return CategoriesListModel.findById(args.id);
       },
@@ -59,6 +60,16 @@ const Query = new GraphQLObjectType({
       type: new GraphQLList(TodoItemType),
       resolve() {
         return TodoListModel.find({});
+      },
+    },
+    todoListByCategory: {
+      type: new GraphQLList(TodoItemType),
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        if (args.id) {
+          return TodoListModel.find({ categoryId: args.id });
+        }
+        return TodoListModel.find();
       },
     },
     todoItemsCount: {
@@ -128,12 +139,12 @@ const Mutation = new GraphQLObjectType({
     updateTodoItem: {
       type: TodoItemType,
       args: {
-        id: { type: GraphQLID },
-        title: { type: new GraphQLNonNull(GraphQLString) },
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: GraphQLString },
         categoryId: { type: GraphQLID },
-        description: { type: new GraphQLNonNull(GraphQLString) },
-        expirationDate: { type: new GraphQLNonNull(GraphQLString) },
-        isDone: { type: new GraphQLNonNull(GraphQLBoolean) },
+        description: { type: GraphQLString },
+        expirationDate: { type: GraphQLString },
+        isDone: { type: GraphQLBoolean },
       },
       resolve(parent, args) {
         return TodoListModel.findByIdAndUpdate(

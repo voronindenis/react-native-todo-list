@@ -3,12 +3,12 @@ import { gql } from 'apollo-boost';
 
 export const UPDATE_TODO_ITEM = gql`
   mutation updateTodoItem(
-    $id: ID,
-    $title: String!,
+    $id: ID!,
+    $title: String,
     $categoryId: ID,
-    $description: String!,
-    $expirationDate: String!,
-    $isDone: Boolean!
+    $description: String,
+    $expirationDate: String,
+    $isDone: Boolean
   ) {
     updateTodoItem(
       id: $id,
@@ -44,6 +44,36 @@ export const CREATE_TODO_ITEM = gql`
       categoryId: $categoryId
       description: $description,
       expirationDate: $expirationDate,
+      isDone: $isDone
+    ) {
+      id,
+      title,
+      category {
+        id,
+        text,
+      },
+      description,
+      expirationDate,
+      isDone,
+    }
+  }
+`;
+
+export const DELETE_TODO_ITEM = gql`
+  mutation deleteTodoItem($id: ID!) {
+    deleteTodoItem(id: $id) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_IS_DONE_FIELD_OF_TODO_ITEM = gql`
+  mutation updateTodoItem(
+    $id: ID!,
+    $isDone: Boolean!
+  ) {
+    updateTodoItem(
+      id: $id,
       isDone: $isDone
     ) {
       id,

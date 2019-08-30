@@ -1,8 +1,9 @@
+// @flow
 import { gql } from 'apollo-boost';
 
-export const GET_TODO_ITEM = gql`
-  query getTodoItem($id: ID!) {
-    todoItem(id: $id) {
+export const GET_TODO_LIST_BY_CATEGORY = gql`
+  query getTodoListByCategory($id: ID) {
+    todoListByCategory(id: $id) {
       id
       title
       category {
@@ -16,9 +17,9 @@ export const GET_TODO_ITEM = gql`
   }
 `;
 
-export const GET_TODO_LIST = gql`
-  query getTodoList {
-    todoList {
+export const GET_TODO_ITEM = gql`
+  query getTodoItem($id: ID!) {
+    todoItem(id: $id) {
       id
       title
       category {

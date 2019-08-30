@@ -5,6 +5,7 @@ export const GET_CATEGORY_LIST = gql`
   query getCategoriesList {
     categoriesList {
       id
+      isFilter
       text
     }
   }
